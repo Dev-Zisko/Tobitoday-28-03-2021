@@ -45,8 +45,8 @@
                             <td>{{ $user['email'] }}</td>
                             <td>{{ $user['role'] }}</td>
                             <td>
-                                <a href="#"><i style="color: #FF6723;" class="fa fa-fw fa-edit"></i></a>
-                                <a href="#"><i style="color: #FF6723;" class="fa fa-fw fa-trash"></i></a>
+                                <a href="{{url('editar-usuario',Crypt::encrypt($user['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-edit"></i></a>
+                                <a href="{{url('eliminar-usuario',Crypt::encrypt($user['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach

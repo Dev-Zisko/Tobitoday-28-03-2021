@@ -23,6 +23,8 @@ class CreateBeneficiariesTable extends Migration
             $table->string('mobile_payment')->nullable();
             $table->string('phonenumber')->nullable();
             $table->string('email');
+            $table->bigInteger('id_user')->unsigned();
+            $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();
         });
     }
