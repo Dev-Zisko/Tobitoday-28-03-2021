@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Beneficiary;
 use App\Models\Payment;
 use App\Models\Country;
+use App\Models\Rate;
 use Exception;
 use Auth;
 
@@ -91,6 +92,22 @@ class ViewController extends Controller
             	$user = User::find($newid);
             	$countries = Country::All();
                 return view('dashboard.users.deleteusers', compact('user','countries'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_rate()
+    {
+        try{
+            if(Auth::user()->role == "Administrador"){
+            	$rate = Rate::find(1);
+                return view('dashboard.rates.rate', compact('rate'));
             }
             else{
                 return view('welcome');

@@ -69,7 +69,7 @@
         </li>
         
         <li class="nav-item">
-          <a class="nav-link collapsed" href="#">
+          <a class="nav-link collapsed" href="{{ route('tasa-del-dia') }}">
             <i class="fas fa-fw fa-percentage"></i>
             <span>Admin. Tasa del Día</span>
           </a>
