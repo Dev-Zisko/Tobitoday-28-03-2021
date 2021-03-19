@@ -48,7 +48,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-          <a class="nav-link collapsed" href="#">
+          <a class="nav-link collapsed" href="{{ route('usuarios') }}">
             <i class="fas fa-fw fa-users"></i>
             <span>Admin. Usuarios</span>
           </a>
