@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,5 +41,9 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::get('/eliminar-usuario/{id}', [ViewController::class, 'view_delete_user'])->name('eliminar-usuario');
 
 	Route::post('/eliminar-usuario/{id}', [UserController::class, 'delete_user'])->name('eliminar-usuario');
+
+	Route::get('/tasa-del-dia', [ViewController::class, 'view_rate'])->name('tasa-del-dia');
+
+	Route::post('/tasa-del-dia', [RateController::class, 'update_rate'])->name('tasa-del-dia');
 
 });
