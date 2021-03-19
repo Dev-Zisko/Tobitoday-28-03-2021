@@ -66,10 +66,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="country">País</label>
-                                        <!--
-                                            Ingresar seleccion de pais
-                                            <input class="form-control" type="text" id="name" placeholder="Ingresa tu nombre" required>
-                                        -->
+                                        <select type="text" id="country" name="country" class="form-control" required>
+                                            @foreach($countries as $country)
+                                                @if($country->name == "United States")
+                                                    <option value="{{ $country->acronym }}" selected>{{ $country->name }}</option>
+                                                @else
+                                                    <option value="{{ $country->acronym }}">{{ $country->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Correo Electrónico</label>
@@ -84,6 +89,15 @@
                                         <label for="password">Contraseña</label>
                                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Ingresa tu contraseña">
                                         @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password-confirm">Repetir Contraseña</label>
+                                        <input id="password-confirm" type="password" class="form-control @error('password-confirm') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password-confirm" placeholder="Ingresa tu contraseña">
+                                        @error('password-confirm')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

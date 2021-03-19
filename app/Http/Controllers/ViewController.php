@@ -26,7 +26,7 @@ class ViewController extends Controller
                 return view('dashboard.users.users', compact('users'));
             }
             else{
-                return view('welcome');
+                return view('users.beneficiaries');
             }
         }catch(Exception $ex){
             Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
