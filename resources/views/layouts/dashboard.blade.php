@@ -55,7 +55,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link collapsed" href="#">
+          <a class="nav-link collapsed" href="{{ route('beneficiarios') }}">
             <i class="fas fa-fw fa-user-cog"></i>
             <span>Admin. Beneficiarios</span>
           </a>
@@ -171,10 +171,10 @@
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
                 <i class="fas fa-user-circle fa-sm fa-fw mr-2"></i>Mi perfil</a>
-                <a class="dropdown-item" href="#" onclick="event.preventDefault();
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>Salir</a>
-                <form id="logout-form" action="#" method="POST" style="display: none;">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
               </div>

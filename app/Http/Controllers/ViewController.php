@@ -102,6 +102,79 @@ class ViewController extends Controller
         }
     }
 
+    public function view_beneficiaries()
+    {
+        try{
+            if(Auth::user()->role == "Administrador"){
+            	$beneficiaries = Beneficiary::All();
+            	$beneficiaries->map(function($beneficiary){
+            		$user = User::find($beneficiary->id_user);
+	                $beneficiary->benefactor = $user->name . " " . $user->lastname 
+	                . " (" . $user->identification . ")";
+            	});
+                return view('dashboard.beneficiaries.beneficiaries', compact('beneficiaries'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_create_beneficiary()
+    {
+        try{
+            if(Auth::user()->role == "Administrador"){
+            	$benefactors = User::All()->sortby('identification');
+                return view('dashboard.beneficiaries.createbeneficiaries', compact('benefactors'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_update_beneficiary($id)
+    {
+        try{
+            if(Auth::user()->role == "Administrador"){
+            	$newid = Crypt::decrypt($id);
+            	$user = User::find($newid);
+            	$countries = Country::All();
+                return view('dashboard.beneficiaries.updatebeneficiaries', compact('user','countries'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_delete_beneficiary($id)
+    {
+        try{
+            if(Auth::user()->role == "Administrador"){
+            	$newid = Crypt::decrypt($id);
+            	$user = User::find($newid);
+            	$countries = Country::All();
+                return view('dashboard.beneficiaries.deletebeneficiaries', compact('user','countries'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
     public function view_rate()
     {
         try{
