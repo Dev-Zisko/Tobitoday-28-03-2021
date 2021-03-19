@@ -29,7 +29,7 @@
                                 
                                 <div class="text-center w-75 m-auto">
                                     <a href="{{ url('/') }}">
-                                        <span><img src="{{ URL::asset('assets/auth/images/logofull.png')}}" alt="" height="100"></span>
+                                        <span><img src="{{ URL::asset('assets/auth/images/logo tobitoday-02.png')}}" alt="" height="100"></span>
                                     </a>
                                     <p class="text-muted mb-4 mt-3">Ingresa tu correo y tu contraseña para acceder al panel administrativo.</p>
                                 </div>

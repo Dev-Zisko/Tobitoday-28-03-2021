@@ -29,8 +29,8 @@
             <div class="container-fluid">
                 <!-- LOGO -->
                 <a class="logo text-uppercase" href="index.html">
-                    <img src="{{ URL::asset('assets/landing/images/logo-light.png')}}" alt="" class="logo-light" height="18" />
-                    <img src="{{ URL::asset('assets/landing/images/logo-dark.png')}}" alt="" class="logo-dark" height="18" />
+                    <img src="{{ URL::asset('assets/landing/images/logo tobitoday-02.png')}}" alt="" class="logo-light" height="50" width="50"/>
+                    <img src="{{ URL::asset('assets/landing/images/logo tobitoday-02.png')}}" alt="" class="logo-dark" height="50" width="50" />
                 </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
