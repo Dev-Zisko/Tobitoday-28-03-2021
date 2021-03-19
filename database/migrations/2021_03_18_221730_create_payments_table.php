@@ -17,7 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->string('amount');
             $table->string('method');
-            $table->string('image');
+            $table->string('voucher');
             $table->bigInteger('id_user')->unsigned();
             $table->foreign('id_user')->references('id')->on('users');
             $table->bigInteger('id_beneficiary')->unsigned();
