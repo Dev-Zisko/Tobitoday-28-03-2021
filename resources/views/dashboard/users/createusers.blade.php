@@ -20,7 +20,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 style="text-align: center; color: #007ED8 !important;" class="m-0 font-weight-bold text-primary">Crear Usuario</h6>
+            <h6 style="text-align: center; color: #FF6723 !important;" class="m-0 font-weight-bold text-primary">Crear Usuario</h6>
         </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -33,7 +33,7 @@
 
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #007ED8;" class="fa fa-fw fa-user"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-user"></i>
                                 </span>
                             </div>
 
@@ -41,7 +41,7 @@
                     
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #007ED8;" class="fa fa-fw fa-user"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-user"></i>
                                 </span>
                             </div>
 
@@ -61,20 +61,20 @@
                         @endif
                     </div>
 
-                    <div class="form-group{{ $errors->has('phonenumber') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('identification') ? ' has-error' : '' }}">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #007ED8;" class="fa fa-fw fa-phone"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-id-card"></i>
                                 </span>
                             </div>
 
-                            <input id="phonenumber" name="phonenumber" type="text" class="form-control" placeholder="Número de teléfono (Opcional)..." value="{{ old('phonenumber') }}">
+                            <input id="identification" name="identification" type="text" class="form-control" placeholder="Documento de identidad (CI, DNI, Pasaporte, PPS)..." value="{{ old('identification') }}" required>
 
                         </div>
-                        @if ($errors->has('phonenumber'))
+                        @if ($errors->has('identification'))
                             <span class="help-block">
-                                <strong style="color: red; font-size: 0.9em;">{{ $errors->first('phonenumber') }}</strong>
+                                <strong style="color: red; font-size: 0.9em;">{{ $errors->first('identification') }}</strong>
                             </span>
                         @endif
                     </div>
@@ -83,7 +83,7 @@
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #007ED8;" class="fa fa-fw fa-envelope"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-envelope"></i>
                                 </span>
                             </div>
 
@@ -97,53 +97,17 @@
                         @endif
                     </div>
 
-                    <div class="card">
-                        <div class="card-header">
-                            Apartamento(s)
-                        </div>
-
-                        <div class="card-body">
-                            <table class="table" id="apartments_table">
-                                <thead>
-                                <tr>
-                                    <th>N° de Apartamento</th>
-                                    <th>Alicuota</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <input id="apartment" name="apartment[]" class="form-control" type="text" required />
-                                        </td>
-                                        <td>
-                                            <input id="aliquot" name="aliquot[]" class="form-control" type="number" step="any" required />
-                                        </td>
-                                        <td>
-                                            <a type="button" style="color: red;" name="delete" id="delete" onclick="deleteApartment('+i+')">Eliminar</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button style="background: #007ED8;" name="add" id="add" type="button" class="btn btn-sm btn-secondary" onclick="addApartment()">+ Añadir otro apartamento</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
                         <label class="col-md-12 control-label" style="text-align: center;">Rol</label>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #007ED8;" class="fa fa-fw fa-list"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-list"></i>
                                 </span>
                             </div>
                             <select type="text" id="role" name="role" class="form-control" required>
-                                <option value="Propietario" selected>Propietario</option>
+                                <option value="Usuario" selected>Usuario</option>
                                 <option value="Administrador">Administrador</option>
                             </select>
                         </div>
@@ -153,7 +117,7 @@
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #007ED8;" class="fa fa-fw fa-key"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-key"></i>
                                 </span>
                             </div>
 
@@ -161,7 +125,7 @@
 
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #007ED8;" class="fa fa-fw fa-key"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-key"></i>
                                 </span>
                             </div>
 
@@ -184,7 +148,7 @@
             </div>
             <br>
             <div class="footer text-center">
-                <button style="color: #007ED8;" type="submit" class="btn btn-outline-dark"><i style="color: #007ED8;" class="fa fa-fw fa-save"></i> Crear</button>
+                <button style="color: #FF6723;" type="submit" class="btn btn-outline-dark"><i style="color: #FF6723;" class="fa fa-fw fa-save"></i> Crear</button>
             </div>
             </form>
         </div>

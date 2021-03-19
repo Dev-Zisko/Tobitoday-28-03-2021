@@ -24,8 +24,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware'=>'auth'], function(){
 
-	Route::get('/dashboard', [ViewController::class, 'view_dashboard'])->name('dashboard');
+	Route::get('/panel-administrativo', [ViewController::class, 'view_dashboard'])->name('panel-administrativo');
 
-	Route::get('/usuarios', [ViewController::class, 'view_dashboard'])->name('usuarios');
+	Route::get('/usuarios', [ViewController::class, 'view_users'])->name('usuarios');
+
+	Route::get('/crear-usuario', [ViewController::class, 'view_create_user'])->name('crear-usuario');
 
 });
