@@ -1,47 +1,90 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Resetear Contraseña</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{{ URL::asset('assets/auth/images/favicon.ico')}}">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+        <!-- App css -->
+        <link href="{{ URL::asset('assets/auth/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ URL::asset('assets/auth/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ URL::asset('assets/auth/css/app.min.css')}}" rel="stylesheet" type="text/css" />
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+    </head>
+
+    <body class="authentication-bg authentication-bg-pattern">
+
+        <div class="account-pages mt-5 mb-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6 col-xl-5">
+                        <div class="card bg-pattern">
+
+                            <div class="card-body p-4">
+                                @if (session('status'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
+                                <div class="text-center w-75 m-auto">
+                                    <a href="{{ url('/') }}">
+                                        <span><img src="{{ URL::asset('assets/auth/images/logofull.png')}}" alt="" height="100"></span>
+                                    </a>
+                                    <p class="text-muted mb-4 mt-3">Ingresa tu correo electrónico y te mandaremos un correo con las instrucciones de restablecimiento de contraseña.</p>
+                                </div>
+
+                                <form method="POST" action="{{ route('password.email') }}">
+
+                                    <div class="form-group mb-3">
+                                        <label for="emailaddress">Correo electrónico</label>
+                                        <input type="email" id="emailaddress" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Ingresa tu correo electrónico">
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group mb-0 text-center">
+                                        <button class="btn btn-primary btn-block" type="submit"> Enviar link de reestablecimiento de contraseña</button>
+                                    </div>
+
+                                </form>
+
+                            </div> <!-- end card-body -->
                         </div>
-                    @endif
+                        <!-- end card -->
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="row mt-3">
+                            <div class="col-12 text-center">
+                                <p class="text-white-50">Volver a <a href="{{ route('login') }}" class="text-white ml-1"><b>Ingresar</b></a></p>
+                            </div> <!-- end col -->
                         </div>
+                        <!-- end row -->
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    </div> <!-- end col -->
                 </div>
+                <!-- end row -->
             </div>
+            <!-- end container -->
         </div>
-    </div>
-</div>
-@endsection
+        <!-- end page -->
+
+
+        <footer class="footer footer-alt">
+            2015 - 2019 &copy; UBold theme by <a href="" class="text-white-50">Coderthemes</a> 
+        </footer>
+
+        <!-- Vendor js -->
+        <script src="{{ URL::asset('assets/auth/js/vendor.min.js')}}"></script>
+
+        <!-- App js -->
+        <script src="{{ URL::asset('assets/auth/js/app.min.js')}}"></script>     
+        
+    </body>
+</html>
