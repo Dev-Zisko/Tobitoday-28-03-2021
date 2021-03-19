@@ -79,6 +79,27 @@
                         @endif
                     </div>
 
+                    <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
+                        <label class="col-md-12 control-label" style="text-align: center;">Country</label>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-flag icon-form-color"></i>
+                                </span>
+                            </div>
+                            <select type="text" id="country" name="country" class="form-control" required>
+                                @foreach($countries as $country)
+                                    @if($country->name == "United States")
+                                        <option value="{{ $country->acronym }}" selected>{{ $country->name }}</option>
+                                    @else
+                                        <option value="{{ $country->acronym }}">{{ $country->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -103,7 +124,7 @@
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #FF6723;" class="fa fa-fw fa-list"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-user-tag"></i>
                                 </span>
                             </div>
                             <select type="text" id="role" name="role" class="form-control" required>

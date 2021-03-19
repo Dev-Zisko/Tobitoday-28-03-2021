@@ -18,5 +18,6 @@ class Beneficiary extends Model
         'mobile_payment',
         'phonenumber',
         'email',
+        'id_user',
     ];
 }

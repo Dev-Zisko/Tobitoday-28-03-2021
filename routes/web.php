@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ViewController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,15 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::get('/usuarios', [ViewController::class, 'view_users'])->name('usuarios');
 
 	Route::get('/crear-usuario', [ViewController::class, 'view_create_user'])->name('crear-usuario');
+
+	Route::post('/crear-usuario', [UserController::class, 'create_user'])->name('crear-usuario');
+
+	Route::get('/editar-usuario/{id}', [ViewController::class, 'view_update_user'])->name('editar-usuario');
+
+	Route::post('/editar-usuario/{id}', [UserController::class, 'update_user'])->name('editar-usuario');
+
+	Route::get('/eliminar-usuario/{id}', [ViewController::class, 'view_delete_user'])->name('eliminar-usuario');
+
+	Route::post('/eliminar-usuario/{id}', [UserController::class, 'delete_user'])->name('eliminar-usuario');
 
 });
