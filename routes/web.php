@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\RateController;
 
 /*
@@ -41,6 +42,20 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::get('/eliminar-usuario/{id}', [ViewController::class, 'view_delete_user'])->name('eliminar-usuario');
 
 	Route::post('/eliminar-usuario/{id}', [UserController::class, 'delete_user'])->name('eliminar-usuario');
+
+	Route::get('/beneficiarios', [ViewController::class, 'view_beneficiaries'])->name('beneficiarios');
+
+	Route::get('/crear-beneficiario', [ViewController::class, 'view_create_beneficiary'])->name('crear-beneficiario');
+
+	Route::post('/crear-beneficiario', [BeneficiaryController::class, 'create_beneficiary'])->name('crear-beneficiario');
+
+	Route::get('/editar-beneficiario/{id}', [ViewController::class, 'view_update_beneficiary'])->name('editar-beneficiario');
+
+	Route::post('/editar-beneficiario/{id}', [BeneficiaryController::class, 'update_beneficiary'])->name('editar-beneficiario');
+
+	Route::get('/eliminar-beneficiario/{id}', [ViewController::class, 'view_delete_beneficiary'])->name('eliminar-beneficiario');
+
+	Route::post('/eliminar-beneficiario/{id}', [BeneficiaryController::class, 'delete_beneficiary'])->name('eliminar-beneficiario');
 
 	Route::get('/tasa-del-dia', [ViewController::class, 'view_rate'])->name('tasa-del-dia');
 
