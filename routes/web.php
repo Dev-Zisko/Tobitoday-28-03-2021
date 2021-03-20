@@ -5,6 +5,7 @@ use App\Http\Controllers\ViewController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\RateController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,24 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::get('/eliminar-beneficiario/{id}', [ViewController::class, 'view_delete_beneficiary'])->name('eliminar-beneficiario');
 
 	Route::post('/eliminar-beneficiario/{id}', [BeneficiaryController::class, 'delete_beneficiary'])->name('eliminar-beneficiario');
+
+	Route::get('/remesas', [ViewController::class, 'view_payments'])->name('remesas');
+
+	Route::get('/crear-remesa', [ViewController::class, 'view_create_payment'])->name('crear-remesa');
+
+	Route::post('/crear-remesa', [PaymentController::class, 'create_payment'])->name('crear-remesa');
+
+	Route::get('/editar-remesa/{id}', [ViewController::class, 'view_update_payment'])->name('editar-remesa');
+
+	Route::post('/editar-remesa/{id}', [PaymentController::class, 'update_payment'])->name('editar-remesa');
+
+	Route::get('/eliminar-remesa/{id}', [ViewController::class, 'view_delete_payment'])->name('eliminar-remesa');
+
+	Route::post('/eliminar-remesa/{id}', [PaymentController::class, 'delete_payment'])->name('eliminar-remesa');
+
+	Route::get('/ver-remesa', [ViewController::class, 'view_detail_payment'])->name('ver-remesa');
+
+	Route::post('/ver-remesa', [PaymentController::class, 'detail_payment'])->name('ver-remesa');
 
 	Route::get('/tasa-del-dia', [ViewController::class, 'view_rate'])->name('tasa-del-dia');
 
