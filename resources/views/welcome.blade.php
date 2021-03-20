@@ -25,18 +25,21 @@
     <body>
 
         <!--Navbar Start-->
-        <nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky sticky-dark">
+
+        <nav  class="navbar navbar-expand-lg fixed-top navbar-custom sticky sticky-dark">
             <div class="container-fluid">
                 <!-- LOGO -->
                 <a class="logo text-uppercase" href="index.html">
-                    <img src="{{ URL::asset('assets/landing/images/logo tobitoday-02.png')}}" alt="" class="logo-light" height="50" width="50"/>
-                    <img src="{{ URL::asset('assets/landing/images/logo tobitoday-02.png')}}" alt="" class="logo-dark" height="50" width="50" />
+                    <img src="{{ URL::asset('assets/landing/images/logo-home-light.png')}}" alt="" class="logo-light" height="20%" width="20%"/>
+                    <img src="{{ URL::asset('assets/landing/images/logo-home.png')}}" alt="" class="logo-dark" height="20%" width="20%" />
                 </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="mdi mdi-menu"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
+
+                <div style="font-size: 1.2em;" class="collapse navbar-collapse" id="navbarCollapse">
+
                     <ul class="navbar-nav mx-auto navbar-center" id="mySidenav">
                         <li class="nav-item active">
                             <a href="#home" class="nav-link"></a>
@@ -55,10 +58,12 @@
                     @if (Route::has('login'))
                         
                         @auth
-                            <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
+
+                            <a style="margin-left: 15px;" href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
                         @else
                             <!--<a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a> -->
-                            <a class="btn btn-info navbar-btn" href="{{ route('login') }}">Ingresar</a>
+                            <a style="margin-left: 15px;" class="btn btn-info navbar-btn" href="{{ route('login') }}">Ingresar</a>
+
                             @if (Route::has('register'))
                             
                             <!--<a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>-->
