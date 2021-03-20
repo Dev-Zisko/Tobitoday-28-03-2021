@@ -66,6 +66,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="country">País</label>
+
                                         <select type="text" id="country" name="country" class="form-control" required>
                                             @foreach($countries as $country)
                                                 @if($country->name == "United States")
@@ -75,6 +76,7 @@
                                                 @endif
                                             @endforeach
                                         </select>
+
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Correo Electrónico</label>
@@ -95,6 +97,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
+
                                         <label for="password-confirm">Repetir Contraseña</label>
                                         <input id="password-confirm" type="password" class="form-control @error('password-confirm') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password-confirm" placeholder="Ingresa tu contraseña">
                                         @error('password-confirm')
@@ -104,6 +107,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
+                                    
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" id="checkbox-signup">
                                             <label class="custom-control-label" for="checkbox-signup">Yo, acepto los <a href="javascript: void(0);" class="text-dark">Términos y condiciones</a></label>

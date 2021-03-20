@@ -25,6 +25,7 @@
     <body>
 
         <!--Navbar Start-->
+
         <nav  class="navbar navbar-expand-lg fixed-top navbar-custom sticky sticky-dark">
             <div class="container-fluid">
                 <!-- LOGO -->
@@ -36,7 +37,9 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="mdi mdi-menu"></i>
                 </button>
+
                 <div style="font-size: 1.2em;" class="collapse navbar-collapse" id="navbarCollapse">
+
                     <ul class="navbar-nav mx-auto navbar-center" id="mySidenav">
                         <li class="nav-item active">
                             <a href="#home" class="nav-link"></a>
@@ -55,10 +58,12 @@
                     @if (Route::has('login'))
                         
                         @auth
+
                             <a style="margin-left: 15px;" href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
                         @else
                             <!--<a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a> -->
                             <a style="margin-left: 15px;" class="btn btn-info navbar-btn" href="{{ route('login') }}">Ingresar</a>
+
                             @if (Route::has('register'))
                             
                             <!--<a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>-->
