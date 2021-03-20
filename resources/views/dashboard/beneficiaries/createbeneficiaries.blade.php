@@ -177,7 +177,7 @@
                             </div>
                             <select type="text" id="benefactor" name="benefactor" class="form-control" required>
                                 @foreach($benefactors as $benefactor)
-                                        <option value="{{ $benefactor->id }}">{{ $benefactor->name }} {{ $benefactor->lastname }} ({{ $benefactor->identification }})</option>
+                                        <option value="{{ $benefactor->id }}">{{ $benefactor->identification }} {{ $benefactor->name }} {{ $benefactor->lastname }}</option>
                                 @endforeach
                             </select>
                         </div>
