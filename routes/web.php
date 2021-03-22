@@ -61,6 +61,20 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::get('/eliminar-beneficiario/{id}', [ViewController::class, 'view_delete_beneficiary'])->name('eliminar-beneficiario');
 
 	Route::post('/eliminar-beneficiario/{id}', [BeneficiaryController::class, 'delete_beneficiary'])->name('eliminar-beneficiario');
+	
+	Route::get('/beneficiarios-u', [ViewController::class, 'view_userbeneficiaries'])->name('beneficiarios-u');
+
+	Route::get('/crear-beneficiario-u', [ViewController::class, 'view_create_userbeneficiary'])->name('crear-beneficiario-u');
+
+	Route::post('/crear-beneficiario-u', [BeneficiaryController::class, 'create_beneficiary_u'])->name('crear-beneficiario-u');
+
+	Route::get('/editar-beneficiario-u/{id}', [ViewController::class, 'view_update_userbeneficiary'])->name('editar-beneficiario-u');
+
+	Route::post('/editar-beneficiario-u/{id}', [BeneficiaryController::class, 'update_beneficiary_u'])->name('editar-beneficiario-u');
+
+	Route::get('/eliminar-beneficiario-u/{id}', [ViewController::class, 'view_delete_userbeneficiary'])->name('eliminar-beneficiario-u');
+
+	Route::post('/eliminar-beneficiario-u/{id}', [BeneficiaryController::class, 'delete_beneficiary_u'])->name('eliminar-beneficiario-u');
 
 	Route::get('/remesas', [ViewController::class, 'view_payments'])->name('remesas');
 
