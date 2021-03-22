@@ -63,8 +63,8 @@
 
         <li class="nav-item">
           <a class="nav-link collapsed" href="{{ route('remesas') }}">
-            <i class="fas fa-fw fa-credit-card"></i>
-            <span>Admin. Pagos</span>
+            <i class="fas fa-fw fa-dollar-sign"></i>
+            <span>Admin. Remesas</span>
           </a>
         </li>
         

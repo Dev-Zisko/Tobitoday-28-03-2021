@@ -1,4 +1,4 @@
-@extends('layouts.dashboard-payments')
+@extends('layouts.dashboard')
 
 @section('head-content')
     <h1 class="h3 mb-0 text-gray-800">Remesas</h1>
@@ -39,6 +39,7 @@
                                 </span>
                             </div>
                             <select type="text" id="benefactor" name="benefactor" class="form-control" onchange="loadBeneficiaries()" required>
+                                <option id="bene" name="bene" value="Default" selected>Seleccione un benefactor...</option>
                                 @foreach($benefactors as $benefactor)
                                     <option value="{{ $benefactor->id }}">{{ $benefactor->identification }} - {{ $benefactor->name }} {{ $benefactor->lastname }}</option>
                                 @endforeach
@@ -125,6 +126,22 @@
                             </span>
                         @endif
                     </div>
+
+                    <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
+                        <label class="col-md-12 control-label" style="text-align: center;">Estatus</label>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-bars"></i>
+                                </span>
+                            </div>
+                            <select type="text" id="status" name="status" class="form-control" required>
+                                <option value="Por Verificar" selected>Por Verificar</option>
+                                <option value="Realizado">Realizado</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <br>
@@ -140,7 +157,7 @@
 @section('scripts')
   <script type="text/javascript">
     var beneficiaries = {!! json_encode($beneficiaries, JSON_HEX_TAG) !!};
-
+/*
     function loadFirstBeneficiaries (){
         var initial = 0;
         for(beneficiary of beneficiaries) {
@@ -151,9 +168,10 @@
             }  
         }
     }
-
+*/
     function loadBeneficiaries (){
         $('#ben').remove();
+        $('#bene').remove();
         var validate = 0;
         var idBenefactor = document.getElementById('benefactor').value;
         for(beneficiary of beneficiaries) {
@@ -194,7 +212,7 @@
           return (+(Math.round(+arr[0] + 'e' + sig + (+arr[1] + prec)) + 'e-' + prec)).toFixed(prec)
         }
       }
-      // @todo: for IE parseFloat(0.55).toFixed(0) = 0;
+      
       s = (prec ? toFixedFix(n, prec).toString() : '' + Math.round(n)).split('.')
       if (s[0].length > 3) {
         s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep)

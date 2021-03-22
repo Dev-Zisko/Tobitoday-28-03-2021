@@ -219,9 +219,13 @@ class ViewController extends Controller
         try{
             if(Auth::user()->role == "Administrador"){
                 $newid = Crypt::decrypt($id);
-                $user = User::find($newid);
-                $countries = Country::All();
-                return view('dashboard.users.updateusers', compact('user','countries'));
+                $payment = Payment::find($newid);
+                $benefactors = User::All();
+                $beneficiaries = Beneficiary::All();
+                // PENDIENTE PREGUNTAR QUE TASA SE USARA
+                $rate = Rate::find(1);
+                $amountbs = $payment->amount * $payment->rate;
+                return view('dashboard.payments.updatepayments', compact('payment', 'amountbs','benefactors', 'beneficiaries', 'rate'));
             }
             else{
                 return view('welcome');
@@ -237,9 +241,31 @@ class ViewController extends Controller
         try{
             if(Auth::user()->role == "Administrador"){
                 $newid = Crypt::decrypt($id);
-                $user = User::find($newid);
-                $countries = Country::All();
-                return view('dashboard.users.deleteusers', compact('user','countries'));
+                $payment = Payment::find($newid);
+                $benefactor = User::find($payment->id_user);
+                $beneficiary = Beneficiary::find($payment->id_beneficiary);
+                $amountbs = $payment->amount * $payment->rate;
+                return view('dashboard.payments.deletepayments', compact('payment', 'amountbs','benefactor', 'beneficiary'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_detail_payment($id)
+    {
+        try{
+            if(Auth::user()->role == "Administrador"){
+                $newid = Crypt::decrypt($id);
+                $payment = Payment::find($newid);
+                $benefactor = User::find($payment->id_user);
+                $beneficiary = Beneficiary::find($payment->id_beneficiary);
+                $amountbs = $payment->amount * $payment->rate;
+                return view('dashboard.payments.detailpayments', compact('payment', 'amountbs','benefactor', 'beneficiary'));
             }
             else{
                 return view('welcome');
