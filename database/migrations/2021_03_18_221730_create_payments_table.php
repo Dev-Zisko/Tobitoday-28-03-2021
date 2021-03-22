@@ -19,6 +19,7 @@ class CreatePaymentsTable extends Migration
             $table->string('rate');
             $table->string('method');
             $table->string('voucher');
+            $table->string('status');
             $table->bigInteger('id_user')->unsigned();
             $table->foreign('id_user')->references('id')->on('users');
             $table->bigInteger('id_beneficiary')->unsigned();

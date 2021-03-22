@@ -14,6 +14,7 @@ class Payment extends Model
         'rate',
         'method',
         'voucher',
+        'status',
         'id_user',
         'id_beneficiary',
     ];

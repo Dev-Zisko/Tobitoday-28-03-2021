@@ -109,8 +109,7 @@ class ViewController extends Controller
             	$beneficiaries = Beneficiary::All();
             	$beneficiaries->map(function($beneficiary){
             		$user = User::find($beneficiary->id_user);
-	                $beneficiary->benefactor = $user->name . " " . $user->lastname 
-	                . " (" . $user->identification . ")";
+	                $beneficiary->benefactor = $user->identification . " - " . $user->name . " " . $user->lastname;
             	});
                 return view('dashboard.beneficiaries.beneficiaries', compact('beneficiaries'));
             }
@@ -144,9 +143,9 @@ class ViewController extends Controller
         try{
             if(Auth::user()->role == "Administrador"){
             	$newid = Crypt::decrypt($id);
-            	$user = User::find($newid);
-            	$countries = Country::All();
-                return view('dashboard.beneficiaries.updatebeneficiaries', compact('user','countries'));
+            	$beneficiary = Beneficiary::find($newid);
+            	$benefactors = User::All()->sortby('identification');
+                return view('dashboard.beneficiaries.updatebeneficiaries', compact('beneficiary','benefactors'));
             }
             else{
                 return view('welcome');
@@ -162,9 +161,111 @@ class ViewController extends Controller
         try{
             if(Auth::user()->role == "Administrador"){
             	$newid = Crypt::decrypt($id);
-            	$user = User::find($newid);
-            	$countries = Country::All();
-                return view('dashboard.beneficiaries.deletebeneficiaries', compact('user','countries'));
+            	$beneficiary = Beneficiary::find($newid);
+            	$benefactor = User::find($beneficiary->id_user);
+                return view('dashboard.beneficiaries.deletebeneficiaries', compact('beneficiary','benefactor'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_payments()
+    {
+        try{
+            if(Auth::user()->role == "Administrador"){
+                $payments = Payment::All()->sortby('status');
+                $payments->map(function($payment){
+                    $user = User::find($payment->id_user);
+                    $beneficiary = Beneficiary::find($payment->id_beneficiary);
+                    $payment->benefactor = $user->identification . " - " . $user->name . " " . $user->lastname;
+                    $payment->beneficiary = $beneficiary->identification . " - " . $beneficiary->name . " " . $beneficiary->lastname;
+                });
+                return view('dashboard.payments.payments', compact('payments'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_create_payment()
+    {
+        try{
+            if(Auth::user()->role == "Administrador"){
+                $benefactors = User::All();
+                $beneficiaries = Beneficiary::All();
+                $rate = Rate::find(1);
+                return view('dashboard.payments.createpayments', compact('benefactors', 'beneficiaries', 'rate'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_update_payment($id)
+    {
+        try{
+            if(Auth::user()->role == "Administrador"){
+                $newid = Crypt::decrypt($id);
+                $payment = Payment::find($newid);
+                $benefactors = User::All();
+                $beneficiaries = Beneficiary::All();
+                // PENDIENTE PREGUNTAR QUE TASA SE USARA
+                $rate = Rate::find(1);
+                $amountbs = $payment->amount * $payment->rate;
+                return view('dashboard.payments.updatepayments', compact('payment', 'amountbs','benefactors', 'beneficiaries', 'rate'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_delete_payment($id)
+    {
+        try{
+            if(Auth::user()->role == "Administrador"){
+                $newid = Crypt::decrypt($id);
+                $payment = Payment::find($newid);
+                $benefactor = User::find($payment->id_user);
+                $beneficiary = Beneficiary::find($payment->id_beneficiary);
+                $amountbs = $payment->amount * $payment->rate;
+                return view('dashboard.payments.deletepayments', compact('payment', 'amountbs','benefactor', 'beneficiary'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_detail_payment($id)
+    {
+        try{
+            if(Auth::user()->role == "Administrador"){
+                $newid = Crypt::decrypt($id);
+                $payment = Payment::find($newid);
+                $benefactor = User::find($payment->id_user);
+                $beneficiary = Beneficiary::find($payment->id_beneficiary);
+                $amountbs = $payment->amount * $payment->rate;
+                return view('dashboard.payments.detailpayments', compact('payment', 'amountbs','benefactor', 'beneficiary'));
             }
             else{
                 return view('welcome');
