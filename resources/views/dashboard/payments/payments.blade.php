@@ -43,7 +43,11 @@
                             <td>{{ $payment['beneficiary'] }}</td>
                             <td>{{ $payment['amount'] }}</td>
                             <td>{{ $payment['method'] }}</td>
-                            <td>{{ $payment['status'] }}</td>
+                            @if($payment['status'] == "Por Verificar")
+                              <td style="color: #FF6A00;">{{ $payment['status'] }}</td>
+                            @else
+                              <td style="color: #3AC400;">{{ $payment['status'] }}</td>
+                            @endif
                             <td>
                                 <a href="{{url('editar-remesa',Crypt::encrypt($payment['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-edit"></i></a>
                                 <a href="{{url('ver-remesa',Crypt::encrypt($payment['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-eye"></i></a>

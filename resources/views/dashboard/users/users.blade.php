@@ -28,8 +28,8 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Nombre</th>
                       <th>Identificación</th>
+                      <th>Nombre Completo</th>
                       <th>País</th>
                       <th>Email</th>
                       <th>Rol</th>
@@ -39,8 +39,8 @@
                   <tbody>
                     @foreach($users as $user)
                         <tr>
-                            <td>{{ $user['name'] }} {{ $user['lastname'] }}</td>
                             <td>{{ $user['identification'] }}</td>
+                            <td>{{ $user['name'] }} {{ $user['lastname'] }}</td>
                             <td>{{ $user['country'] }}</td>
                             <td>{{ $user['email'] }}</td>
                             <td>{{ $user['role'] }}</td>

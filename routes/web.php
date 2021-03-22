@@ -76,9 +76,9 @@ Route::group(['middleware'=>'auth'], function(){
 
 	Route::post('/eliminar-remesa/{id}', [PaymentController::class, 'delete_payment'])->name('eliminar-remesa');
 
-	Route::get('/ver-remesa', [ViewController::class, 'view_detail_payment'])->name('ver-remesa');
+	Route::get('/ver-remesa/{id}', [ViewController::class, 'view_detail_payment'])->name('ver-remesa');
 
-	Route::post('/ver-remesa', [PaymentController::class, 'detail_payment'])->name('ver-remesa');
+	Route::post('/ver-remesa/{id}', [PaymentController::class, 'detail_payment'])->name('ver-remesa');
 
 	Route::get('/tasa-del-dia', [ViewController::class, 'view_rate'])->name('tasa-del-dia');
 
