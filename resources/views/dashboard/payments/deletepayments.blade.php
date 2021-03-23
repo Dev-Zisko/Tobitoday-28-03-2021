@@ -37,7 +37,7 @@
                                 </span>
                             </div>
 
-                            <input id="benefactor" name="benefactor" type="text" class="form-control" placeholder="Benefactor..." value="{{ $benefactor->identification }} - {{ $benefactor->name }} {{ $benefactor->lastname }}" disabled>
+                            <input id="benefactor" name="benefactor" type="text" class="form-control" placeholder="Benefactor..." value="Benefactor: {{ $benefactor->identification }} - {{ $benefactor->name }} {{ $benefactor->lastname }}" disabled>
 
                         </div>
                         @if ($errors->has('benefactor'))
@@ -55,7 +55,7 @@
                                 </span>
                             </div>
 
-                            <input id="beneficiary" name="beneficiary" type="text" class="form-control" placeholder="Beneficiario..." value="{{ $beneficiary->identification }} - {{ $beneficiary->name }} {{ $beneficiary->lastname }}" disabled>
+                            <input id="beneficiary" name="beneficiary" type="text" class="form-control" placeholder="Beneficiario..." value="Beneficiario: {{ $beneficiary->identification }} - {{ $beneficiary->name }} {{ $beneficiary->lastname }}" disabled>
 
                         </div>
                         @if ($errors->has('beneficiary'))

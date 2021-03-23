@@ -16,9 +16,10 @@ use Auth;
 
 class BeneficiaryController extends Controller
 {
-    public function create_beneficiary(Request $request){
+    public function create_beneficiary(Request $request, $id){
         try{
             if(Auth::user()->role == "Administrador"){
+                $newid = Crypt::decrypt($id);
                 $beneficiary = new Beneficiary;
                 $beneficiary->name = $request->name;
                 $beneficiary->lastname = $request->lastname;
@@ -28,10 +29,10 @@ class BeneficiaryController extends Controller
                 $beneficiary->mobile_payment = $request->mobile_payment;
                 $beneficiary->phonenumber = $request->phonenumber;
                 $beneficiary->email = $request->email;
-                $beneficiary->id_user = $request->benefactor;
+                $beneficiary->id_user = $newid;
                 $beneficiary->save();
                 Session::flash('message', 'Beneficiario creado exitosamente!');
-                return redirect('beneficiarios');
+                return redirect('beneficiarios/'.$id);
             }else{
                 return redirect('welcome');
             }
@@ -53,9 +54,9 @@ class BeneficiaryController extends Controller
                 Beneficiary::where('id', $newid)->update(['mobile_payment' => $request->mobile_payment]);
                 Beneficiary::where('id', $newid)->update(['phonenumber' => $request->phonenumber]);
                 Beneficiary::where('id', $newid)->update(['email' => $request->email]);
-                Beneficiary::where('id', $newid)->update(['id_user' => $request->benefactor]);
+                $beneficiary = Beneficiary::find($newid);
                 Session::flash('message', 'Beneficiario editado exitosamente!');
-                return redirect('beneficiarios');
+                return redirect('beneficiarios/'.Crypt::encrypt($beneficiary->id_user));
             }else{
                 return redirect('welcome');
             }
@@ -70,9 +71,10 @@ class BeneficiaryController extends Controller
             if(Auth::user()->role == "Administrador"){
                 $newid = Crypt::decrypt($id);
                 Payment::where('id_beneficiary', $newid)->delete();
+                $beneficiary = Beneficiary::find($newid);
                 Beneficiary::where('id', $newid)->delete();
                 Session::flash('message', 'Beneficiario eliminado exitosamente!');
-                return redirect('beneficiarios');
+                return redirect('beneficiarios/'.Crypt::encrypt($beneficiary->id_user));
             }else{
                 return redirect('welcome');
             }

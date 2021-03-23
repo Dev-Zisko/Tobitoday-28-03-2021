@@ -132,7 +132,7 @@
                                 </span>
                             </div>
 
-                            <input id="benefactor" name="benefactor" type="text" class="form-control" placeholder="Benefactor..." value="{{ $benefactor->identification }} {{ $benefactor->name }} {{ $benefactor->lastname }}" disabled>
+                            <input id="benefactor" name="benefactor" type="text" class="form-control" placeholder="Benefactor..." value="Benefactor: {{ $benefactor->identification }} - {{ $benefactor->name }} {{ $benefactor->lastname }}" disabled>
 
                         </div>
                     </div>

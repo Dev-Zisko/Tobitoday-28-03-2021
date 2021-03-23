@@ -29,23 +29,6 @@
             <div class="card-header card-header-primary text-center">
                 <div class="social-line">
                     <h3 style="color: #FF6723">Tasa del día: {{ number_format($rate['rate'], 2, ',', '.') }} Bs</h3>
-                    <div class="form-group{{ $errors->has('benefactor') ? ' has-error' : '' }}">
-                        <label class="col-md-12 control-label" style="text-align: center;">Benefactor</label>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i style="color: #FF6723;" class="fa fa-fw fa-hand-holding-heart"></i>
-                                </span>
-                            </div>
-                            <select type="text" id="benefactor" name="benefactor" class="form-control" onchange="loadBeneficiaries()" required>
-                                <option id="bene" name="bene" value="Default" selected>Seleccione un benefactor...</option>
-                                @foreach($benefactors as $benefactor)
-                                    <option value="{{ $benefactor->id }}">{{ $benefactor->identification }} - {{ $benefactor->name }} {{ $benefactor->lastname }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
 
                     <div class="form-group{{ $errors->has('beneficiary') ? ' has-error' : '' }}">
                         <label class="col-md-12 control-label" style="text-align: center;">Beneficiario</label>
@@ -57,6 +40,9 @@
                                 </span>
                             </div>
                             <select type="text" id="beneficiary" name="beneficiary" class="form-control" required>
+                                @foreach($beneficiaries as $beneficiary)
+                                    <option value="{{ $beneficiary->id }}">{{ $beneficiary->identification }} - {{ $beneficiary->name }} {{ $beneficiary->lastname }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -168,7 +154,7 @@
             }  
         }
     }
-*/
+
     function loadBeneficiaries (){
         $('#ben').remove();
         $('#bene').remove();
@@ -186,10 +172,10 @@
                 .append('<option id="ben" name="ben" value="Default">Este benefactor no posee ningún beneficiario.</option>');
         }
     }
-
+*/
     function updateAmountbs (amount, rate){
         var newAmount = amount * rate;
-        newAmount = number_format(newAmount, 2, ',', '.')
+        newAmount = number_format(newAmount, 2, ',', '.');
         document.getElementById("amountbs").value = newAmount + " Bs";
     }
 

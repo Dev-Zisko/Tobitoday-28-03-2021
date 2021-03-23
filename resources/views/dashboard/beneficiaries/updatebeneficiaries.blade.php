@@ -167,24 +167,21 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('benefactor') ? ' has-error' : '' }}">
-                        <label class="col-md-12 control-label" style="text-align: center;">Benefactor</label>
-
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #FF6723;" class="fa fa-fw fa-hand-holding-heart icon-form-color"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-hand-holding-heart"></i>
                                 </span>
                             </div>
-                            <select type="text" id="benefactor" name="benefactor" class="form-control" required>
-                                @foreach($benefactors as $benefactor)
-                                    @if($beneficiary->id_user == $benefactor->id)
-                                        <option value="{{ $benefactor->id }}" selected>{{ $benefactor->identification }} {{ $benefactor->name }} {{ $benefactor->lastname }}</option>
-                                    @else
-                                        <option value="{{ $benefactor->id }}">{{ $benefactor->identification }} {{ $benefactor->name }} {{ $benefactor->lastname }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
+
+                            <input id="benefactor" name="benefactor" type="text" class="form-control" placeholder="Benefactor..." value="Benefactor: {{ $benefactor->identification }} - {{ $benefactor->name }} {{ $benefactor->lastname }}" disabled>
+
                         </div>
+                        @if ($errors->has('benefactor'))
+                            <span class="help-block">
+                                <strong style="color: red; font-size: 0.9em;">{{ $errors->first('benefactor') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
             </div>
