@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('head-content')
-    <h1 class="h3 mb-0 text-gray-800">Beneficiarios</h1>
+    <h1 class="h3 mb-0 text-gray-800">Mis Beneficiarios</h1>
     <a href="{{ route('crear-mi-beneficiario') }}" style="background-color: #FF6723; border-color: #FF6723;" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Crear beneficiario</a>
 @endsection
 
@@ -21,7 +21,7 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 style="text-align: center; color: #FF6723  !important;" class="m-0 font-weight-bold text-primary">Lista de Beneficiarios</h6>
+              <h6 style="text-align: center; color: #FF6723  !important;" class="m-0 font-weight-bold text-primary">Lista de mis beneficiarios registrados</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -32,8 +32,9 @@
                       <th>Identificación</th>
                       <th>Banco - Numero de cuenta</th>
                       <th>Email</th>
-                      <th>Benefactor</th>
-                      <th>Opciones</th>
+                      <th>Editar</th>
+                      <th>Envíar Remesa</th>
+                      <th>Eliminar</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -43,9 +44,13 @@
                             <td>{{ $beneficiary['identification'] }}</td>
                             <td>{{ $beneficiary['bank'] }} - {{ $beneficiary['number_account'] }}</td>
                             <td>{{ $beneficiary['email'] }}</td>
-                            <td>{{ $beneficiary['benefactor'] }}</td>
-                            <td>
+                            <td style="text-align: center;">
                                 <a href="{{url('editar-mi-beneficiario',Crypt::encrypt($beneficiary['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-edit"></i></a>
+                            </td>
+                            <td style="text-align: center;">
+                                <a href="{{url('enviar-remesa',Crypt::encrypt($beneficiary['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-share"></i></a>
+                            </td>
+                            <td style="text-align: center;">
                                 <a href="{{url('eliminar-mi-beneficiario',Crypt::encrypt($beneficiary['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-trash"></i></a>
                             </td>
                         </tr>
@@ -53,6 +58,7 @@
                     @if(count($beneficiaries) == 0)
                         <tr>
                             <td>No hay beneficiarios registrados aún</td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>

@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('head-content')
-    <h1 class="h3 mb-0 text-gray-800">Beneficiarios</h1>
+    <h1 class="h3 mb-0 text-gray-800">Mis Beneficiarios</h1>
 @endsection
 
 @section('content')
@@ -120,19 +120,6 @@
                             </div>
 
                             <input id="email" name="email" type="email" class="form-control" placeholder="Correo Electrónico..." value="{{ $beneficiary->email }}" disabled>
-
-                        </div>
-                    </div>
-
-                    <div class="form-group{{ $errors->has('benefactor') ? ' has-error' : '' }}">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i style="color: #FF6723;" class="fa fa-fw fa-hand-holding-heart"></i>
-                                </span>
-                            </div>
-
-                            <input id="benefactor" name="benefactor" type="text" class="form-control" placeholder="Benefactor..." value="{{ $benefactor->identification }} {{ $benefactor->name }} {{ $benefactor->lastname }}" disabled>
 
                         </div>
                     </div>
