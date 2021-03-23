@@ -17,16 +17,19 @@ use Auth;
 
 class PaymentController extends Controller
 {
-    public function create_payment(Request $request, $id){
-        try{
-            if(Auth::user()->role == "Administrador"){
+    // Funcionalidades CRUD Remesas Administrador
+
+    public function create_payment(Request $request, $id)
+    {
+        try {
+            if (Auth::user()->role == "Administrador") {
                 $newid = Crypt::decrypt($id);
         		$payment = new Payment;
                 $payment->amount = $request->amount;
                 $rate = Rate::find(1);
                 $payment->rate = $rate->rate;
                 $payment->method = $request->method;
-                if ($request->hasFile('voucher')){
+                if ($request->hasFile('voucher')) {
                     $voucher = $request->file('voucher')->store('public');
                     $cutvoucher = substr($voucher, 7);
                     $payment->voucher = $cutvoucher;
@@ -37,24 +40,25 @@ class PaymentController extends Controller
                 $payment->save();
                 Session::flash('message', 'Remesa creada exitosamente!');
                 return redirect('remesas-usuarios/'.$id);
-            }else{
-                return redirect('welcome');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }
     }
 
-    public function update_payment(Request $request, $id){
-        try{
-            if(Auth::user()->role == "Administrador"){
+    public function update_payment(Request $request, $id)
+    {
+        try {
+            if (Auth::user()->role == "Administrador") {
             	$newid = Crypt::decrypt($id);
             	Payment::where('id', $newid)->update(['amount' => $request->amount]);
             	$rate = Rate::find(1);
                 Payment::where('id', $newid)->update(['rate' => $rate->rate]);
                 Payment::where('id', $newid)->update(['method' => $request->method]);
-                if ($request->hasFile('voucher')){
+                if ($request->hasFile('voucher')) {
                     $voucher = $request->file('voucher')->store('public');
                     $cutvoucher = substr($voucher, 7);
                     Payment::where('id', $newid)->update(['voucher' => $cutvoucher]);
@@ -64,43 +68,45 @@ class PaymentController extends Controller
                 $payment = Payment::find($newid);
                 Session::flash('message', 'Remesa editada exitosamente!');
                 return redirect('remesas-usuarios/'.Crypt::encrypt($payment->id_user));
-            }else{
-                return redirect('welcome');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }
     }
 
-    public function delete_payment(Request $request, $id){
-        try{
-            if(Auth::user()->role == "Administrador"){
+    public function delete_payment(Request $request, $id)
+    {
+        try {
+            if (Auth::user()->role == "Administrador") {
                 $newid = Crypt::decrypt($id);
                 $payment = Payment::find($newid);
                 Payment::where('id', $newid)->delete();
                 Session::flash('message', 'Remesa eliminada exitosamente!');
                 return redirect('remesas-usuarios/'.Crypt::encrypt($payment->id_user));
-            }else{
-                return redirect('welcome');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }
     }
 
-    public function detail_payment(Request $request, $id){
-        try{
-            if(Auth::user()->role == "Administrador"){
+    public function detail_payment(Request $request, $id)
+    {
+        try {
+            if (Auth::user()->role == "Administrador") {
 	            $newid = Crypt::decrypt($id);
                 Payment::where('id', $newid)->update(['status' => $request->status]);
                 Session::flash('message', 'Estatus de la remesa editado exitosamente!');
                 return redirect('remesas');
-            }else{
-                return redirect('welcome');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }

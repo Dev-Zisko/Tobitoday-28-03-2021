@@ -16,9 +16,12 @@ use Auth;
 
 class BeneficiaryController extends Controller
 {
-    public function create_beneficiary(Request $request, $id){
-        try{
-            if(Auth::user()->role == "Administrador"){
+    // Funcionalidades CRUD Beneficiarios Adminitrador
+
+    public function create_beneficiary(Request $request, $id)
+    {
+        try {
+            if (Auth::user()->role == "Administrador") {
                 $newid = Crypt::decrypt($id);
                 $beneficiary = new Beneficiary;
                 $beneficiary->name = $request->name;
@@ -33,18 +36,19 @@ class BeneficiaryController extends Controller
                 $beneficiary->save();
                 Session::flash('message', 'Beneficiario creado exitosamente!');
                 return redirect('beneficiarios/'.$id);
-            }else{
-                return redirect('welcome');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }
     }
 
-    public function update_beneficiary(Request $request, $id){
-        try{
-            if(Auth::user()->role == "Administrador"){
+    public function update_beneficiary(Request $request, $id)
+    {
+        try {
+            if (Auth::user()->role == "Administrador") {
             	$newid = Crypt::decrypt($id);
             	Beneficiary::where('id', $newid)->update(['name' => $request->name]);
                 Beneficiary::where('id', $newid)->update(['lastname' => $request->lastname]);
@@ -57,36 +61,40 @@ class BeneficiaryController extends Controller
                 $beneficiary = Beneficiary::find($newid);
                 Session::flash('message', 'Beneficiario editado exitosamente!');
                 return redirect('beneficiarios/'.Crypt::encrypt($beneficiary->id_user));
-            }else{
-                return redirect('welcome');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }
     }
 
-    public function delete_beneficiary(Request $request, $id){
-        try{
-            if(Auth::user()->role == "Administrador"){
+    public function delete_beneficiary(Request $request, $id)
+    {
+        try {
+            if (Auth::user()->role == "Administrador") {
                 $newid = Crypt::decrypt($id);
                 Payment::where('id_beneficiary', $newid)->delete();
                 $beneficiary = Beneficiary::find($newid);
                 Beneficiary::where('id', $newid)->delete();
                 Session::flash('message', 'Beneficiario eliminado exitosamente!');
                 return redirect('beneficiarios/'.Crypt::encrypt($beneficiary->id_user));
-            }else{
-                return redirect('welcome');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }
     }
 
-    public function create_beneficiary_u(Request $request){
-        try{
-            if(Auth::user()->role == "Usuario"){
+    // Funcionalidades CRUD Beneficiarios Usuarios
+
+    public function create_my_beneficiary(Request $request)
+    {
+        try {
+            if (Auth::user()->role == "Usuario") {
                 $beneficiary = new Beneficiary;
                 $beneficiary->name = $request->name;
                 $beneficiary->lastname = $request->lastname;
@@ -99,19 +107,20 @@ class BeneficiaryController extends Controller
                 $beneficiary->id_user = Auth::user()->id;
                 $beneficiary->save();
                 Session::flash('message', 'Beneficiario creado exitosamente!');
-                return redirect('beneficiarios-u');
-            }else{
-                return redirect('welcome');
+                return redirect('mis-beneficiarios');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }
     }
 
-    public function update_beneficiary_u(Request $request, $id){
-        try{
-            if(Auth::user()->role == "Usuario"){
+    public function update_my_beneficiary(Request $request, $id)
+    {
+        try {
+            if (Auth::user()->role == "Usuario") {
             	$newid = Crypt::decrypt($id);
             	Beneficiary::where('id', $newid)->update(['name' => $request->name]);
                 Beneficiary::where('id', $newid)->update(['lastname' => $request->lastname]);
@@ -123,34 +132,31 @@ class BeneficiaryController extends Controller
                 Beneficiary::where('id', $newid)->update(['email' => $request->email]);
                 Beneficiary::where('id', $newid)->update(['id_user' => Auth::user()->id]);
                 Session::flash('message', 'Beneficiario editado exitosamente!');
-                return redirect('beneficiarios-u');
-            }else{
-                return redirect('welcome');
+                return redirect('mis-beneficiarios');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }
     }
 
-    public function delete_beneficiary_u(Request $request, $id){
-        try{
-            if(Auth::user()->role == "Usuario"){
+    public function delete_my_beneficiary(Request $request, $id)
+    {
+        try {
+            if (Auth::user()->role == "Usuario") {
                 $newid = Crypt::decrypt($id);
                 Payment::where('id_beneficiary', $newid)->delete();
                 Beneficiary::where('id', $newid)->delete();
                 Session::flash('message', 'Beneficiario eliminado exitosamente!');
-                return redirect('beneficiarios-u');
-            }else{
-                return redirect('welcome');
+                return redirect('mis-beneficiarios');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }
     }
-
-
-
-
 }

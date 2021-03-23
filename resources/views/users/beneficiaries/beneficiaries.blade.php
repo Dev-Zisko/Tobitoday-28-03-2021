@@ -2,7 +2,7 @@
 
 @section('head-content')
     <h1 class="h3 mb-0 text-gray-800">Beneficiarios</h1>
-    <a href="{{ route('crear-beneficiario-u') }}" style="background-color: #FF6723; border-color: #FF6723;" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Crear beneficiario</a>
+    <a href="{{ route('crear-mi-beneficiario') }}" style="background-color: #FF6723; border-color: #FF6723;" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Crear beneficiario</a>
 @endsection
 
 @section('content')
@@ -45,8 +45,8 @@
                             <td>{{ $beneficiary['email'] }}</td>
                             <td>{{ $beneficiary['benefactor'] }}</td>
                             <td>
-                                <a href="{{url('editar-beneficiario-u',Crypt::encrypt($beneficiary['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-edit"></i></a>
-                                <a href="{{url('eliminar-beneficiario-u',Crypt::encrypt($beneficiary['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-trash"></i></a>
+                                <a href="{{url('editar-mi-beneficiario',Crypt::encrypt($beneficiary['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-edit"></i></a>
+                                <a href="{{url('eliminar-mi-beneficiario',Crypt::encrypt($beneficiary['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach
