@@ -16,13 +16,16 @@ use Auth;
 
 class UserController extends Controller
 {
-    public function create_user(Request $request){
-        try{
-            if(Auth::user()->role == "Administrador"){
-                if(User::where('email', $request->email)->exists() || User::where('identification', $request->identification)->exists()){
+    // Funcionalidades CRUD Usuarios Administrador
+
+    public function create_user(Request $request)
+    {
+        try {
+            if (Auth::user()->role == "Administrador") {
+                if (User::where('email', $request->email)->exists() || User::where('identification', $request->identification)->exists()) {
                     Session::flash('error', 'El correo o número de identificación ya esta registrado en el sistema, por favor revise e intentenuevamente.');
                     return redirect('crear-usuario');
-                }else{
+                } else {
                     $user = new User;
                     $user->name = $request->name;
                     $user->lastname = $request->lastname;
@@ -35,57 +38,59 @@ class UserController extends Controller
                     Session::flash('message', 'Usuario creado exitosamente!');
                     return redirect('usuarios');
                 }
-            }else{
-                return redirect('welcome');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }
     }
 
-    public function update_user(Request $request, $id){
-        try{
-            if(Auth::user()->role == "Administrador"){
+    public function update_user(Request $request, $id)
+    {
+        try {
+            if (Auth::user()->role == "Administrador") {
             	$newid = Crypt::decrypt($id);
-                if(User::where([['email', $request->email], ['id', '!=', $newid]])->exists() || User::where([['identification', $request->identification], ['id', '!=', $newid]])->exists()){
+                if (User::where([['email', $request->email], ['id', '!=', $newid]])->exists() || User::where([['identification', $request->identification], ['id', '!=', $newid]])->exists()) {
                     Session::flash('error', 'El correo o número de identificación ya esta registrado en el sistema, por favor revise e intentenuevamente.');
                     return redirect('usuarios');
-                }else{
+                } else {
                 	User::where('id', $newid)->update(['name' => $request->name]);
                     User::where('id', $newid)->update(['lastname' => $request->lastname]);
                     User::where('id', $newid)->update(['identification' => $request->identification]);
                     User::where('id', $newid)->update(['country' => $request->country]);
                     User::where('id', $newid)->update(['email' => $request->email]);
                     User::where('id', $newid)->update(['role' => $request->role]);
-                    if($request->password != "" && $request->repassword != "" && ($request->password == $request->repassword)){
+                    if ($request->password != "" && $request->repassword != "" && ($request->password == $request->repassword)) {
                         User::where('id', $newid)->update(['password' => Hash::make($request->password)]);
                     }
                     Session::flash('message', 'Usuario editado exitosamente!');
                     return redirect('usuarios');
                 }
-            }else{
-                return redirect('welcome');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }
     }
 
-    public function delete_user(Request $request, $id){
-        try{
-            if(Auth::user()->role == "Administrador"){
+    public function delete_user(Request $request, $id)
+    {
+        try {
+            if (Auth::user()->role == "Administrador") {
                 $newid = Crypt::decrypt($id);
                 Payment::where('id_user', $newid)->delete();
                 Beneficiary::where('id_user', $newid)->delete();
                 User::where('id', $newid)->delete();
                 Session::flash('message', 'Usuario eliminado exitosamente!');
                 return redirect('usuarios');
-            }else{
-                return redirect('welcome');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }

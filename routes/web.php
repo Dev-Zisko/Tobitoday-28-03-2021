@@ -18,21 +18,36 @@ use App\Http\Controllers\PaymentController;
 |
 */
 
-Auth::routes();
+// Routes principales de la página sin auth
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ViewController::class, 'view_index'])->name('');
+
+Route::get('/tobitoday', [ViewController::class, 'view_index'])->name('tobitoday');
+
+// Route para errores de rutas que no existen en la página
 
 Route::get('404', function(){
     abort(404);
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('500', function(){
+    abort(500);
+});
+
+// Routes básicas del CRUD de Auth Users
+
+Auth::routes();
 
 Route::group(['middleware'=>'auth'], function(){
 
+	// Route principal para ambos usuarios al panel administrativo
+	// Roles: Administrador || Usuario
+
 	Route::get('/panel-administrativo', [ViewController::class, 'view_dashboard'])->name('panel-administrativo');
+
+	// Routes para los Administradores
+
+	// CRUD Usuarios
 
 	Route::get('/usuarios', [ViewController::class, 'view_users'])->name('usuarios');
 
@@ -48,6 +63,8 @@ Route::group(['middleware'=>'auth'], function(){
 
 	Route::post('/eliminar-usuario/{id}', [UserController::class, 'delete_user'])->name('eliminar-usuario');
 
+	// CRUD Beneficiarios
+
 	Route::get('/beneficiarios/{id}', [ViewController::class, 'view_beneficiaries'])->name('beneficiarios');
 
 	Route::get('/crear-beneficiario/{id}', [ViewController::class, 'view_create_beneficiary'])->name('crear-beneficiario');
@@ -61,20 +78,8 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::get('/eliminar-beneficiario/{id}', [ViewController::class, 'view_delete_beneficiary'])->name('eliminar-beneficiario');
 
 	Route::post('/eliminar-beneficiario/{id}', [BeneficiaryController::class, 'delete_beneficiary'])->name('eliminar-beneficiario');
-	
-	Route::get('/beneficiarios-u', [ViewController::class, 'view_userbeneficiaries'])->name('beneficiarios-u');
 
-	Route::get('/crear-beneficiario-u', [ViewController::class, 'view_create_userbeneficiary'])->name('crear-beneficiario-u');
-
-	Route::post('/crear-beneficiario-u', [BeneficiaryController::class, 'create_beneficiary_u'])->name('crear-beneficiario-u');
-
-	Route::get('/editar-beneficiario-u/{id}', [ViewController::class, 'view_update_userbeneficiary'])->name('editar-beneficiario-u');
-
-	Route::post('/editar-beneficiario-u/{id}', [BeneficiaryController::class, 'update_beneficiary_u'])->name('editar-beneficiario-u');
-
-	Route::get('/eliminar-beneficiario-u/{id}', [ViewController::class, 'view_delete_userbeneficiary'])->name('eliminar-beneficiario-u');
-
-	Route::post('/eliminar-beneficiario-u/{id}', [BeneficiaryController::class, 'delete_beneficiary_u'])->name('eliminar-beneficiario-u');
+	// CRUD Remesas
 
 	Route::get('/remesas', [ViewController::class, 'view_payments'])->name('remesas');
 
@@ -96,8 +101,28 @@ Route::group(['middleware'=>'auth'], function(){
 
 	Route::post('/ver-remesa/{id}', [PaymentController::class, 'detail_payment'])->name('ver-remesa');
 
+	// CRUD Tasa del día
+
 	Route::get('/tasa-del-dia', [ViewController::class, 'view_rate'])->name('tasa-del-dia');
 
 	Route::post('/tasa-del-dia', [RateController::class, 'update_rate'])->name('tasa-del-dia');
+
+	// Routes para los Usuarios
+
+	// CRUD beneficiarios
+	
+	Route::get('/mis-beneficiarios', [ViewController::class, 'view_my_beneficiaries'])->name('mis-beneficiarios');
+
+	Route::get('/crear-mi-beneficiario', [ViewController::class, 'view_create_my_beneficiary'])->name('crear-mi-beneficiario');
+
+	Route::post('/crear-mi-beneficiario', [BeneficiaryController::class, 'create_my_beneficiary'])->name('crear-mi-beneficiario');
+
+	Route::get('/editar-mi-beneficiario/{id}', [ViewController::class, 'view_update_my_beneficiary'])->name('editar-mi-beneficiario');
+
+	Route::post('/editar-mi-beneficiario/{id}', [BeneficiaryController::class, 'update_my_beneficiary'])->name('editar-mi-beneficiario');
+
+	Route::get('/eliminar-mi-beneficiario/{id}', [ViewController::class, 'view_delete_my_beneficiary'])->name('eliminar-mi-beneficiario');
+
+	Route::post('/eliminar-mi-beneficiario/{id}', [BeneficiaryController::class, 'delete_my_beneficiary'])->name('eliminar-mi-beneficiario');
 
 });

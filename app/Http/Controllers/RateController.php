@@ -17,16 +17,19 @@ use Auth;
 
 class RateController extends Controller
 {
-    public function update_rate(Request $request){
-    	try{
-            if(Auth::user()->role == "Administrador"){
+    // Funcionalidades CRUD Tasa del día Administrador
+
+    public function update_rate(Request $request)
+    {
+    	try {
+            if (Auth::user()->role == "Administrador") {
                 Rate::where('id', 1)->update(['rate' => $request->rate]);
                 Session::flash('message', 'Tasa del día actualizada exitosamente!');
                 return redirect('tasa-del-dia');
-            }else{
-                return redirect('welcome');
+            } else {
+                return redirect('index');
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
             return view('welcome');
         }

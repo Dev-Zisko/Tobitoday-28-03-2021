@@ -2,7 +2,6 @@
 
 @section('head-content')
     <h1 class="h3 mb-0 text-gray-800">Remesas</h1>
-    <a href="{{ route('crear-remesa') }}" style="background-color: #FF6723; border-color: #FF6723;" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Crear remesa</a>
 @endsection
 
 @section('content')
