@@ -76,28 +76,12 @@
         </li>
       
       @elseif(Auth::user()->role == "Usuario")
-
         <li class="nav-item">
-          <a class="nav-link collapsed" href="#">
-            <i class="fas fa-fw fa-user-plus"></i>
-            <span>Registrar Beneficiario</span>
+          <a class="nav-link collapsed" href="{{ route('beneficiarios-u') }}">
+            <i class="fas fa-fw fa-user-cog"></i>
+            <span>Mis Beneficiarios</span>
           </a>
         </li>
-
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="#">
-            <i class="fas fa-fw fa-user-tag"></i>
-            <span>Modificar Beneficiario</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="#">
-            <i class="fas fa-fw fa-user-times"></i>
-            <span>Eliminar Beneficiario</span>
-          </a>
-        </li>
-
         <li class="nav-item">
           <a class="nav-link collapsed" href="#">
             <i class="fas fa-fw fa-share"></i>

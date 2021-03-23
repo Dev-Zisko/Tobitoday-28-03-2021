@@ -26,7 +26,7 @@ class ViewController extends Controller
                 return view('dashboard.users.users', compact('users'));
             }
             else{
-                return view('users.beneficiaries');
+                return view('users.landing');
             }
         }catch(Exception $ex){
             Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
@@ -174,6 +174,76 @@ class ViewController extends Controller
         }
     }
 
+    public function view_userbeneficiaries()
+    {
+        try{
+            if(Auth::user()->role == "Usuario"){
+            	$beneficiaries = Beneficiary::All(); 
+            	$beneficiaries->map(function($beneficiary){
+            		$user = User::find($beneficiary->id_user);
+	                $beneficiary->benefactor = $user->identification . " - " . $user->name . " " . $user->lastname;
+            	});
+                return view('users.beneficiaries.beneficiaries', compact('beneficiaries'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_create_userbeneficiary()
+    {
+        try{
+            if(Auth::user()->role == "Usuario"){
+                return view('users.beneficiaries.createbeneficiaries');
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_update_userbeneficiary($id)
+    {
+        try{
+            if(Auth::user()->role == "Usuario"){
+            	$newid = Crypt::decrypt($id);
+            	$beneficiary = Beneficiary::find($newid);
+                return view('users.beneficiaries.updatebeneficiaries', compact('beneficiary'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_delete_userbeneficiary($id)
+    {
+        try{
+            if(Auth::user()->role == "Usuario"){
+            	$newid = Crypt::decrypt($id);
+            	$beneficiary = Beneficiary::find($newid);
+            	$benefactor = User::find($beneficiary->id_user);
+                return view('users.beneficiaries.deletebeneficiaries', compact('beneficiary','benefactor'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
     public function view_payments()
     {
         try{
@@ -291,4 +361,6 @@ class ViewController extends Controller
             return view('welcome');
         }
     }
+
+
 }
