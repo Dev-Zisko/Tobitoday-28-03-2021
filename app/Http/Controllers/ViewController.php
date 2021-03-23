@@ -40,7 +40,8 @@ class ViewController extends Controller
                 return view('dashboard.users.users', compact('users'));
             }
             else if (Auth::user()->role == "Usuario") {
-                return view('users.landing');
+                $beneficiaries = Beneficiary::where('id_user', Auth::user()->id)->orderby('identification')->get(); 
+                return view('users.beneficiaries.beneficiaries', compact('beneficiaries'));
             }
             else {
                 return view('index');
@@ -357,11 +358,7 @@ class ViewController extends Controller
     {
         try {
             if (Auth::user()->role == "Usuario") {
-                $beneficiaries = Beneficiary::All(); 
-                $beneficiaries->map(function($beneficiary){
-                    $user = User::find($beneficiary->id_user);
-                    $beneficiary->benefactor = $user->identification . " - " . $user->name . " " . $user->lastname;
-                });
+                $beneficiaries = Beneficiary::where('id_user', Auth::user()->id)->orderby('identification')->get(); 
                 return view('users.beneficiaries.beneficiaries', compact('beneficiaries'));
             }
             else {
@@ -415,7 +412,31 @@ class ViewController extends Controller
                 return view('users.beneficiaries.deletebeneficiaries', compact('beneficiary','benefactor'));
             }
             else {
-                return view('welcome');
+                return view('index');
+            }
+        } catch(Exception $ex) {
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    // CRUD Remesas
+
+    public function view_list_payments()
+    {
+        try {
+            if (Auth::user()->role == "Usuario") {
+                $payments = Payment::where('id_user', Auth::user()->id)->orderby('created_at')->get();
+                $payments->map(function($payment){
+                    $beneficiary = Beneficiary::find($payment->id_beneficiary);
+                    $payment->beneficiary = $beneficiary->identification . " - " . $beneficiary->name . " " . $beneficiary->lastname;
+                    $payment->amountbs = $payment->amount * $payment->rate;
+                    $payment->date = date_format($payment->created_at, "d/m/Y");
+                });
+                return view('users.payments.payments', compact('payments'));
+            }
+            else {
+                return view('index');
             }
         } catch(Exception $ex) {
             Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');

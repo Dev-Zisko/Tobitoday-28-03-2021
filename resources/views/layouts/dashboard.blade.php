@@ -70,21 +70,15 @@
       
       @elseif(Auth::user()->role == "Usuario")
         <li class="nav-item">
-          <a class="nav-link collapsed" href="{{ route('beneficiarios-u') }}">
+          <a class="nav-link collapsed" href="{{ route('mis-beneficiarios') }}">
             <i class="fas fa-fw fa-user-cog"></i>
             <span>Mis Beneficiarios</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="#">
-            <i class="fas fa-fw fa-share"></i>
-            <span>Envio de remesas</span>
-          </a>
-        </li>
 
         <li class="nav-item">
-          <a class="nav-link collapsed" href="#">
-            <i class="fas fa-fw fa-tasks"></i>
+          <a class="nav-link collapsed" href="{{ route('lista-remesas') }}">
+            <i class="fas fa-fw fa-dollar-sign"></i>
             <span>Lista de remesas enviadas</span>
           </a>
         </li>

@@ -109,7 +109,7 @@ Route::group(['middleware'=>'auth'], function(){
 
 	// Routes para los Usuarios
 
-	// CRUD beneficiarios
+	// CRUD Beneficiarios
 	
 	Route::get('/mis-beneficiarios', [ViewController::class, 'view_my_beneficiaries'])->name('mis-beneficiarios');
 
@@ -124,5 +124,11 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::get('/eliminar-mi-beneficiario/{id}', [ViewController::class, 'view_delete_my_beneficiary'])->name('eliminar-mi-beneficiario');
 
 	Route::post('/eliminar-mi-beneficiario/{id}', [BeneficiaryController::class, 'delete_my_beneficiary'])->name('eliminar-mi-beneficiario');
+
+	// CRUD Remesas
+
+	Route::get('/enviar-remesa', [ViewController::class, 'view_send_payment'])->name('enviar-remesa');
+
+	Route::get('/lista-remesas', [ViewController::class, 'view_list_payments'])->name('lista-remesas');
 
 });
