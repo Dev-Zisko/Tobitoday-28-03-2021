@@ -111,4 +111,36 @@ class PaymentController extends Controller
             return view('welcome');
         }
     }
+
+    // Funcionalidades CRUD Remesas Usuarios
+
+    public function send_payment(Request $request, $id)
+    {
+        try {
+            if (Auth::user()->role == "Usuario") {
+                $newid = Crypt::decrypt($id);
+                $payment = new Payment;
+                $payment->amount = $request->amount;
+                $rate = Rate::find(1);
+                $payment->rate = $rate->rate;
+                $payment->method = $request->method;
+                if ($request->hasFile('voucher')) {
+                    $voucher = $request->file('voucher')->store('public');
+                    $cutvoucher = substr($voucher, 7);
+                    $payment->voucher = $cutvoucher;
+                }
+                $payment->status = "Por Verificar";
+                $payment->id_user = Auth::user()->id;
+                $payment->id_beneficiary = $newid;
+                $payment->save();
+                Session::flash('message', 'Remesa creada exitosamente!');
+                return redirect('lista-remesas');
+            } else {
+                return redirect('index');
+            }
+        } catch (Exception $ex) {
+            Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
+            return view('welcome');
+        }
+    }
 }
