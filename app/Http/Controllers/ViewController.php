@@ -102,16 +102,18 @@ class ViewController extends Controller
         }
     }
 
-    public function view_beneficiaries()
+    public function view_beneficiaries($id)
     {
         try{
             if(Auth::user()->role == "Administrador"){
-            	$beneficiaries = Beneficiary::All();
+                $newid = Crypt::decrypt($id);
+                $benefactor = User::where('id', $newid)->first();
+            	$beneficiaries = Beneficiary::where('id_user', $newid)->get();
             	$beneficiaries->map(function($beneficiary){
             		$user = User::find($beneficiary->id_user);
 	                $beneficiary->benefactor = $user->identification . " - " . $user->name . " " . $user->lastname;
             	});
-                return view('dashboard.beneficiaries.beneficiaries', compact('beneficiaries'));
+                return view('dashboard.beneficiaries.beneficiaries', compact('beneficiaries', 'benefactor'));
             }
             else{
                 return view('welcome');
@@ -122,12 +124,13 @@ class ViewController extends Controller
         }
     }
 
-    public function view_create_beneficiary()
+    public function view_create_beneficiary($id)
     {
         try{
             if(Auth::user()->role == "Administrador"){
-            	$benefactors = User::All()->sortby('identification');
-                return view('dashboard.beneficiaries.createbeneficiaries', compact('benefactors'));
+                $newid = Crypt::decrypt($id);
+                $benefactor = User::where('id', $newid)->get();
+                return view('dashboard.beneficiaries.createbeneficiaries', compact('benefactor'));
             }
             else{
                 return view('welcome');
@@ -142,10 +145,10 @@ class ViewController extends Controller
     {
         try{
             if(Auth::user()->role == "Administrador"){
-            	$newid = Crypt::decrypt($id);
+                $newid = Crypt::decrypt($id);
             	$beneficiary = Beneficiary::find($newid);
-            	$benefactors = User::All()->sortby('identification');
-                return view('dashboard.beneficiaries.updatebeneficiaries', compact('beneficiary','benefactors'));
+                $benefactor = User::find($beneficiary->id_user);
+                return view('dashboard.beneficiaries.updatebeneficiaries', compact('beneficiary', 'benefactor'));
             }
             else{
                 return view('welcome');
@@ -254,6 +257,7 @@ class ViewController extends Controller
                     $beneficiary = Beneficiary::find($payment->id_beneficiary);
                     $payment->benefactor = $user->identification . " - " . $user->name . " " . $user->lastname;
                     $payment->beneficiary = $beneficiary->identification . " - " . $beneficiary->name . " " . $beneficiary->lastname;
+                    $payment->amountbs = $payment->amount * $payment->rate;
                 });
                 return view('dashboard.payments.payments', compact('payments'));
             }
@@ -266,14 +270,40 @@ class ViewController extends Controller
         }
     }
 
-    public function view_create_payment()
+    public function view_payments2($id)
     {
         try{
             if(Auth::user()->role == "Administrador"){
-                $benefactors = User::All();
-                $beneficiaries = Beneficiary::All();
+                $newid = Crypt::decrypt($id);
+                $benefactor = User::where('id', $newid)->first();
+                $payments = Payment::where('id_user', $newid)->orderby('status')->get();
+                $payments->map(function($payment){
+                    $user = User::find($payment->id_user);
+                    $beneficiary = Beneficiary::find($payment->id_beneficiary);
+                    $payment->benefactor = $user->identification . " - " . $user->name . " " . $user->lastname;
+                    $payment->beneficiary = $beneficiary->identification . " - " . $beneficiary->name . " " . $beneficiary->lastname;
+                    $payment->amountbs = $payment->amount * $payment->rate;
+                });
+                return view('dashboard.payments.payments2', compact('payments', 'benefactor'));
+            }
+            else{
+                return view('welcome');
+            }
+        }catch(Exception $ex){
+            Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+            return view('welcome');
+        }
+    }
+
+    public function view_create_payment($id)
+    {
+        try{
+            if(Auth::user()->role == "Administrador"){
+                $newid = Crypt::decrypt($id);
+                $benefactor = User::find($newid);
+                $beneficiaries = Beneficiary::where('id_user', $newid)->get();
                 $rate = Rate::find(1);
-                return view('dashboard.payments.createpayments', compact('benefactors', 'beneficiaries', 'rate'));
+                return view('dashboard.payments.createpayments', compact('benefactor', 'beneficiaries', 'rate'));
             }
             else{
                 return view('welcome');
@@ -290,12 +320,12 @@ class ViewController extends Controller
             if(Auth::user()->role == "Administrador"){
                 $newid = Crypt::decrypt($id);
                 $payment = Payment::find($newid);
-                $benefactors = User::All();
-                $beneficiaries = Beneficiary::All();
+                $benefactor = User::find($payment->id_user);
+                $beneficiaries = Beneficiary::where('id_user', $benefactor->id)->get();
                 // PENDIENTE PREGUNTAR QUE TASA SE USARA
                 $rate = Rate::find(1);
                 $amountbs = $payment->amount * $payment->rate;
-                return view('dashboard.payments.updatepayments', compact('payment', 'amountbs','benefactors', 'beneficiaries', 'rate'));
+                return view('dashboard.payments.updatepayments', compact('payment', 'amountbs', 'beneficiaries', 'rate'));
             }
             else{
                 return view('welcome');

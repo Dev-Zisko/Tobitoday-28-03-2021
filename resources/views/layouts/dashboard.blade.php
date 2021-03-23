@@ -55,16 +55,9 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link collapsed" href="{{ route('beneficiarios') }}">
-            <i class="fas fa-fw fa-user-cog"></i>
-            <span>Admin. Beneficiarios</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
           <a class="nav-link collapsed" href="{{ route('remesas') }}">
             <i class="fas fa-fw fa-dollar-sign"></i>
-            <span>Admin. Remesas</span>
+            <span>Estatus de Remesas</span>
           </a>
         </li>
         

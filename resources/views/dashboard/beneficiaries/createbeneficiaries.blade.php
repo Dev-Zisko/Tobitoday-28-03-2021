@@ -165,23 +165,6 @@
                             </span>
                         @endif
                     </div>
-
-                    <div class="form-group{{ $errors->has('benefactor') ? ' has-error' : '' }}">
-                        <label class="col-md-12 control-label" style="text-align: center;">Benefactor</label>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i style="color: #FF6723;" class="fa fa-fw fa-hand-holding-heart icon-form-color"></i>
-                                </span>
-                            </div>
-                            <select type="text" id="benefactor" name="benefactor" class="form-control" required>
-                                @foreach($benefactors as $benefactor)
-                                        <option value="{{ $benefactor->id }}">{{ $benefactor->identification }} {{ $benefactor->name }} {{ $benefactor->lastname }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
                 </div>
             </div>
             <br>
