@@ -48,11 +48,11 @@ Route::group(['middleware'=>'auth'], function(){
 
 	Route::post('/eliminar-usuario/{id}', [UserController::class, 'delete_user'])->name('eliminar-usuario');
 
-	Route::get('/beneficiarios', [ViewController::class, 'view_beneficiaries'])->name('beneficiarios');
+	Route::get('/beneficiarios/{id}', [ViewController::class, 'view_beneficiaries'])->name('beneficiarios');
 
-	Route::get('/crear-beneficiario', [ViewController::class, 'view_create_beneficiary'])->name('crear-beneficiario');
+	Route::get('/crear-beneficiario/{id}', [ViewController::class, 'view_create_beneficiary'])->name('crear-beneficiario');
 
-	Route::post('/crear-beneficiario', [BeneficiaryController::class, 'create_beneficiary'])->name('crear-beneficiario');
+	Route::post('/crear-beneficiario/{id}', [BeneficiaryController::class, 'create_beneficiary'])->name('crear-beneficiario');
 
 	Route::get('/editar-beneficiario/{id}', [ViewController::class, 'view_update_beneficiary'])->name('editar-beneficiario');
 
@@ -64,9 +64,11 @@ Route::group(['middleware'=>'auth'], function(){
 
 	Route::get('/remesas', [ViewController::class, 'view_payments'])->name('remesas');
 
-	Route::get('/crear-remesa', [ViewController::class, 'view_create_payment'])->name('crear-remesa');
+	Route::get('/remesas-usuarios/{id}', [ViewController::class, 'view_payments2'])->name('remesas-usuarios');
 
-	Route::post('/crear-remesa', [PaymentController::class, 'create_payment'])->name('crear-remesa');
+	Route::get('/crear-remesa/{id}', [ViewController::class, 'view_create_payment'])->name('crear-remesa');
+
+	Route::post('/crear-remesa/{id}', [PaymentController::class, 'create_payment'])->name('crear-remesa');
 
 	Route::get('/editar-remesa/{id}', [ViewController::class, 'view_update_payment'])->name('editar-remesa');
 

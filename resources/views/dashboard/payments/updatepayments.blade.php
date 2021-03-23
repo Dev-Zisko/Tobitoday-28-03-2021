@@ -29,26 +29,6 @@
             <div class="card-header card-header-primary text-center">
                 <div class="social-line">
                     <h3 style="color: #FF6723">Tasa del día: {{ number_format($rate['rate'], 2, ',', '.') }} Bs</h3>
-                    <div class="form-group{{ $errors->has('benefactor') ? ' has-error' : '' }}">
-                        <label class="col-md-12 control-label" style="text-align: center;">Benefactor</label>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i style="color: #FF6723;" class="fa fa-fw fa-hand-holding-heart"></i>
-                                </span>
-                            </div>
-                            <select type="text" id="benefactor" name="benefactor" class="form-control" onchange="loadBeneficiaries()" required>
-                                @foreach($benefactors as $benefactor)
-                                    @if($benefactor->id == $payment->id_user)
-                                        <option value="{{ $benefactor->id }}" selected>{{ $benefactor->identification }} - {{ $benefactor->name }} {{ $benefactor->lastname }}</option>
-                                    @else
-                                        <option value="{{ $benefactor->id }}">{{ $benefactor->identification }} - {{ $benefactor->name }} {{ $benefactor->lastname }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
 
                     <div class="form-group{{ $errors->has('beneficiary') ? ' has-error' : '' }}">
                         <label class="col-md-12 control-label" style="text-align: center;">Beneficiario</label>
@@ -62,11 +42,9 @@
                             <select type="text" id="beneficiary" name="beneficiary" class="form-control" required>
                                 @foreach($beneficiaries as $beneficiary)
                                     @if($beneficiary->id == $payment->id_beneficiary)
-                                        <option id="bene" name="bene" value="{{ $beneficiary->id }}" selected>{{ $beneficiary->identification }} - {{ $beneficiary->name }} {{ $beneficiary->lastname }}</option>
+                                        <option value="{{ $beneficiary->id }}" selected>{{ $beneficiary->identification }} - {{ $beneficiary->name }} {{ $beneficiary->lastname }}</option>
                                     @else
-                                        @if($beneficiary->id_user == $payment->id_user)
-                                            <option id="bene" name="bene" value="{{ $beneficiary->id }}">{{ $beneficiary->identification }} - {{ $beneficiary->name }} {{ $beneficiary->lastname }}</option>
-                                        @endif
+                                        <option value="{{ $beneficiary->id }}">{{ $beneficiary->identification }} - {{ $beneficiary->name }} {{ $beneficiary->lastname }}</option>
                                     @endif
                                 @endforeach
                             </select>

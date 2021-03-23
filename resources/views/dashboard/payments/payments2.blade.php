@@ -2,7 +2,7 @@
 
 @section('head-content')
     <h1 class="h3 mb-0 text-gray-800">Remesas</h1>
-    <a href="{{ route('crear-remesa') }}" style="background-color: #FF6723; border-color: #FF6723;" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Crear remesa</a>
+    <a href="{{ url('crear-remesa', Crypt::encrypt($benefactor->id)) }}" style="background-color: #FF6723; border-color: #FF6723;" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Crear remesa</a>
 @endsection
 
 @section('content')
@@ -29,7 +29,6 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Identificación - Nombre Benefactor</th>
                       <th>Identificación - Nombre Beneficiario</th>
                       <th>Monto ($ o Є)</th>
                       <th>Monto (Bs)</th>
@@ -40,7 +39,6 @@
                   <tbody>
                     @foreach($payments as $payment)
                         <tr>
-                            <td>{{ $payment['benefactor'] }}</td>
                             <td>{{ $payment['beneficiary'] }}</td>
                             <td>{{ $payment['amount'] }}</td>
                             <td>{{ number_format($payment['amountbs'], 2, ',', '.') }}</td>
@@ -50,14 +48,14 @@
                               <td style="color: #3AC400;">{{ $payment['status'] }}</td>
                             @endif
                             <td>
-                                <a href="{{url('ver-remesa',Crypt::encrypt($payment['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-eye"></i></a>
+                                <a href="{{url('editar-remesa',Crypt::encrypt($payment['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-edit"></i></a>
+                                <a href="{{url('eliminar-remesa',Crypt::encrypt($payment['id']))}}"><i style="color: #FF6723;" class="fa fa-fw fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach
                     @if(count($payments) == 0)
                         <tr>
                             <td>No hay remesas registradas aún</td>
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
