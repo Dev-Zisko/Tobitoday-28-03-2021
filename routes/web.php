@@ -109,6 +109,13 @@ Route::group(['middleware'=>'auth'], function(){
 
 	// Routes para los Usuarios
 
+	// CRUD Usuarios
+
+	Route::get('/editar-perfil', [ViewController::class, 'view_profile'])->name('editar-perfil');
+
+	Route::post('/editar-perfil', [UserController::class, 'update_profile'])->name('editar-perfil');
+
+
 	// CRUD Beneficiarios
 	
 	Route::get('/mis-beneficiarios', [ViewController::class, 'view_my_beneficiaries'])->name('mis-beneficiarios');
@@ -132,11 +139,5 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::post('/enviar-remesa/{id}', [PaymentController::class, 'send_payment'])->name('enviar-remesa');
 
 	Route::get('/lista-remesas', [ViewController::class, 'view_list_payments'])->name('lista-remesas');
-
-	// Actualizar perfil
-
-	Route::get('/editar-mi-usuario', [ViewController::class, 'view_update_user_profile'])->name('editar-mi-usuario');
-
-	Route::post('/editar-mi-usuario', [UserController::class, 'update_user_profile'])->name('editar-mi-usuario');
 
 });
