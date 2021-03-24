@@ -95,4 +95,35 @@ class UserController extends Controller
             return view('welcome');
         }
     }
+
+    public function update_user_profile(Request $request)
+    {
+        try {
+            if (Auth::user()->role == "Usuario") {
+            	$newid = Auth::user()->id;
+                if (User::where([['email', $request->email], ['id', '!=', $newid]])->exists() || User::where([['identification', $request->identification], ['id', '!=', $newid]])->exists()) {
+                    Session::flash('error', 'El correo o número de identificación ya esta registrado en el sistema, por favor revise e intentenuevamente.');
+                    return redirect('mis-beneficiarios');
+                } else {
+                	User::where('id', $newid)->update(['name' => $request->name]);
+                    User::where('id', $newid)->update(['lastname' => $request->lastname]);
+                    User::where('id', $newid)->update(['identification' => $request->identification]);
+                    User::where('id', $newid)->update(['country' => $request->country]);
+                    User::where('id', $newid)->update(['email' => $request->email]);
+                    if ($request->password != "" && $request->repassword != "" && ($request->password == $request->repassword)) {
+                        User::where('id', $newid)->update(['password' => Hash::make($request->password)]);
+                    }
+                    Session::flash('message', 'Usuario editado exitosamente!');
+                    return redirect('mis-beneficiarios');
+                }
+            } else {
+                return redirect('index');
+            }
+        } catch (Exception $ex) {
+            Session::flash('error', 'Failed to create the new user. Check the data entered, your internet connection and try again. If the error persists contact support using the error code: #200');
+            return view('welcome');
+        }
+    }
+
+
 }
