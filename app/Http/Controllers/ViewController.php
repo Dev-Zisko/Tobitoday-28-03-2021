@@ -426,7 +426,7 @@ class ViewController extends Controller
     {
         try {
             if (Auth::user()->role == "Usuario") {
-                $payments = Payment::where('id_user', Auth::user()->id)->orderby('created_at')->get();
+                $payments = Payment::where('id_user', Auth::user()->id)->orderby('created_at', 'DESC')->get();
                 $payments->map(function($payment){
                     $beneficiary = Beneficiary::find($payment->id_beneficiary);
                     $payment->beneficiary = $beneficiary->identification . " - " . $beneficiary->name . " " . $beneficiary->lastname;
@@ -443,7 +443,7 @@ class ViewController extends Controller
             return view('welcome');
         }
     }
-
+  
     //Actualizar perfil
 
     public function view_update_user_profile()
@@ -457,7 +457,29 @@ class ViewController extends Controller
             else {
                 return view('index');
             }
+         } catch(Exception $ex) {
+
+              Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+              return view('welcome');
+          }
+      }
+
+    public function view_send_payment($id)
+    {
+        try {
+            if (Auth::user()->role == "Usuario") {
+                $newid = Crypt::decrypt($id);
+                $beneficiary = Beneficiary::find($newid);
+                $rate = Rate::find(1);
+                return view('users.payments.sendpayment', compact('beneficiary', 'rate'));
+            }
+            else {
+                return view('index');
+            }
         } catch (Exception $ex) {
+
+        } catch(Exception $ex) {
+
             Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
             return view('welcome');
         }

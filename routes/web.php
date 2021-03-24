@@ -127,7 +127,9 @@ Route::group(['middleware'=>'auth'], function(){
 
 	// CRUD Remesas
 
-	Route::get('/enviar-remesa', [ViewController::class, 'view_send_payment'])->name('enviar-remesa');
+	Route::get('/enviar-remesa/{id}', [ViewController::class, 'view_send_payment'])->name('enviar-remesa');
+
+	Route::post('/enviar-remesa/{id}', [PaymentController::class, 'send_payment'])->name('enviar-remesa');
 
 	Route::get('/lista-remesas', [ViewController::class, 'view_list_payments'])->name('lista-remesas');
 
