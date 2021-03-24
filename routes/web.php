@@ -133,4 +133,10 @@ Route::group(['middleware'=>'auth'], function(){
 
 	Route::get('/lista-remesas', [ViewController::class, 'view_list_payments'])->name('lista-remesas');
 
+	// Actualizar perfil
+
+	Route::get('/editar-mi-usuario', [ViewController::class, 'view_update_user_profile'])->name('editar-mi-usuario');
+
+	Route::post('/editar-mi-usuario', [UserController::class, 'update_user_profile'])->name('editar-mi-usuario');
+
 });

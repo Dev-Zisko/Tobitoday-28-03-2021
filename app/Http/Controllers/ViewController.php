@@ -443,6 +443,26 @@ class ViewController extends Controller
             return view('welcome');
         }
     }
+  
+    //Actualizar perfil
+
+    public function view_update_user_profile()
+    {
+        try {
+            if (Auth::user()->role == "Usuario") {
+            	$user = User::find(Auth::user()->id);
+            	$countries = Country::All();
+                return view('users.updateprofile', compact('countries','user'));
+            }
+            else {
+                return view('index');
+            }
+         } catch(Exception $ex) {
+
+              Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
+              return view('welcome');
+          }
+      }
 
     public function view_send_payment($id)
     {
@@ -456,7 +476,10 @@ class ViewController extends Controller
             else {
                 return view('index');
             }
+        } catch (Exception $ex) {
+
         } catch(Exception $ex) {
+
             Session::flash('error', 'Error al entrar al sistema. Verifique su conexión a internet e intente nuevamente. Si el error persiste comuniquese con el soporte e indiquele el código de error #.');
             return view('welcome');
         }
