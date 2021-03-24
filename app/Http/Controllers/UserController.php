@@ -96,7 +96,9 @@ class UserController extends Controller
         }
     }
 
-    public function update_user_profile(Request $request)
+    // Funcionalidades CRUD Usuarios Usuarios
+
+    public function update_profile(Request $request)
     {
         try {
             if (Auth::user()->role == "Usuario") {
@@ -124,6 +126,4 @@ class UserController extends Controller
             return view('welcome');
         }
     }
-
-
 }

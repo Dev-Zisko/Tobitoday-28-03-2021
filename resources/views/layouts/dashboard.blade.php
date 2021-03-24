@@ -140,7 +140,7 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="{{route('editar-mi-usuario')}}">
+                <a class="dropdown-item" href="{{route('editar-perfil')}}">
                 <i class="fas fa-user-circle fa-sm fa-fw mr-2"></i>Mi perfil</a>
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
