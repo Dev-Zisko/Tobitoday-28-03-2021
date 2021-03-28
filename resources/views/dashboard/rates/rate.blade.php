@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('head-content')
-    <h1 class="h3 mb-0 text-gray-800">Tasa del día</h1>
+    <h1 class="h3 mb-0 text-gray-800">Tasa del día y Gastos de gestión (%)</h1>
 @endsection
 
 @section('content')
@@ -20,7 +20,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 style="text-align: center; color: #FF6723 !important;" class="m-0 font-weight-bold text-primary">Tasa del día (Bs)</h6>
+            <h6 style="text-align: center; color: #FF6723 !important;" class="m-0 font-weight-bold text-primary">Tasa del día (Bs) y Gastos de gestión (%)</h6>
         </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -28,12 +28,12 @@
             @csrf
             <div class="card-header card-header-primary text-center">
                 <div class="social-line">
-
+                    <label>Tasa del día (Bs)</label>
                     <div class="form-group{{ $errors->has('rate') ? ' has-error' : '' }}">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #FF6723;" class="fa fa-fw fa-dollar-sign"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-exchange-alt"></i>
                                 </span>
                             </div>
 
@@ -43,6 +43,24 @@
                         @if ($errors->has('rate'))
                             <span class="help-block">
                                 <strong style="color: red; font-size: 0.9em;">{{ $errors->first('rate') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <label>Gastos de gestión (%)</label>
+                    <div class="form-group{{ $errors->has('tax') ? ' has-error' : '' }}">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-percentage"></i>
+                                </span>
+                            </div>
+
+                            <input id="tax" name="tax" type="number" step="any" class="form-control" placeholder="Gastos de gestión (%)..." value="{{ $rate->tax }}" required>
+
+                        </div>
+                        @if ($errors->has('tax'))
+                            <span class="help-block">
+                                <strong style="color: red; font-size: 0.9em;">{{ $errors->first('tax') }}</strong>
                             </span>
                         @endif
                     </div>
