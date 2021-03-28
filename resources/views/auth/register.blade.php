@@ -109,12 +109,17 @@
                                     <div class="form-group">
                                     
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="checkbox-signup">
+                                            <input type="checkbox" class="custom-control-input" id="checkbox-signup" name="checkbox-signup" onChange="hola(this)">
                                             <label class="custom-control-label" for="checkbox-signup">Yo, acepto los <a href="javascript: void(0);" class="text-dark">Términos y condiciones</a></label>
+                                            @error('checkbox-signup')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="form-group mb-0 text-center">
-                                        <button class="btn btn-success btn-block" type="submit"> Registrarme </button>
+                                        <button id="send-register" class="btn btn-success btn-block" type="submit" disabled>Acepte los términos y condiciones</button>
                                     </div>
 
                                 </form>
@@ -146,6 +151,22 @@
 
         <!-- App js -->
         <script src="{{ URL::asset('assets/auth/js/app.min.js')}}"></script>
+
+        <script type="text/javascript">
+            function hola(e){
+                const sendRegister = document.getElementById("send-register");
+                if(e.checked){
+                    sendRegister.removeAttribute('disabled')
+                    sendRegister.innerHTML = "";
+                    sendRegister.innerHTML = "Registrarse"
+                }
+                else{
+                    sendRegister.setAttribute('disabled', 'true');
+                    sendRegister.innerHTML = "";
+                    sendRegister.innerHTML = "Acepte los términos y condiciones"
+                }
+            }
+        </script>
         
     </body>
 </html>
