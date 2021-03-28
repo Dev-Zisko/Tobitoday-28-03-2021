@@ -16,6 +16,7 @@ class CreateRatesTable extends Migration
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
             $table->string('rate');
+            $table->string('tax');
             $table->timestamps();
         });
     }

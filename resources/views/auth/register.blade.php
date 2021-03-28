@@ -69,10 +69,10 @@
 
                                         <select type="text" id="country" name="country" class="form-control" required>
                                             @foreach($countries as $country)
-                                                @if($country->name == "United States")
-                                                    <option value="{{ $country->acronym }}" selected>{{ $country->name }}</option>
+                                                @if($country->name == "España")
+                                                    <option value="{{ $country->name }}" selected>{{ $country->name }}</option>
                                                 @else
-                                                    <option value="{{ $country->acronym }}">{{ $country->name }}</option>
+                                                    <option value="{{ $country->name }}">{{ $country->name }}</option>
                                                 @endif
                                             @endforeach
                                         </select>

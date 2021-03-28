@@ -81,14 +81,48 @@
 
                     <div class="form-group{{ $errors->has('bank') ? ' has-error' : '' }}">
                         <div class="input-group mb-3">
-
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i style="color: #FF6723;" class="fa fa-fw fa-university"></i>
                                 </span>
                             </div>
 
-                            <input id="bank" name="bank" type="text" class="form-control" placeholder="Nombre del banco..." value="{{ $beneficiary->bank }}" required>
+                            <select type="text" id="bank" name="bank" class="form-control" required>
+                                @foreach($banks as $bank)
+                                    @if($bank->name == $beneficiary->bank)
+                                        <option value="{{ $bank->name }}" selected>{{ $bank->name }}</option>
+                                    @else
+                                        <option value="{{ $bank->name }}">{{ $bank->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+
+                        </div>
+                        @if ($errors->has('bank'))
+                            <span class="help-block">
+                                <strong style="color: red; font-size: 0.9em;">{{ $errors->first('bank') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="form-group{{ $errors->has('bank') ? ' has-error' : '' }}">
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-piggy-bank"></i>
+                                </span>
+                            </div>
+
+                            <select type="text" id="type_account" name="type_account" class="form-control" required>
+                                @if($beneficiary->type_account == "Corriente")
+                                    <option value="Corriente" selected>Corriente</option>
+                                    <option value="Ahorro">Ahorro</option>
+                                @else
+                                    <option value="Corriente">Corriente</option>
+                                    <option value="Ahorro" selected>Ahorro</option>
+                                @endif
+                            </select>
                     
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -96,12 +130,12 @@
                                 </span>
                             </div>
 
-                            <input id="number_account" name="number_account" type="text" class="form-control" placeholder="Número de cuenta bancaria..." value="{{ $beneficiary->number_account }}" required>
+                            <input id="number_account" name="number_account" type="text" class="form-control" placeholder="Número de cuenta bancaria (Máx. 20 Dígitos)..." value="{{ $beneficiary->number_account }}" required>
 
                         </div>
-                        @if ($errors->has('bank'))
+                        @if ($errors->has('type_account'))
                             <span class="help-block">
-                                <strong style="color: red; font-size: 0.9em;">{{ $errors->first('bank') }}</strong>
+                                <strong style="color: red; font-size: 0.9em;">{{ $errors->first('type_account') }}</strong>
                             </span>
                         @endif
 

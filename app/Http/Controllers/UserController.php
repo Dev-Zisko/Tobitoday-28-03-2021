@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\ProfileRequest;
 use App\Models\User;
 use App\Models\Beneficiary;
 use App\Models\Payment;
@@ -18,7 +20,7 @@ class UserController extends Controller
 {
     // Funcionalidades CRUD Usuarios Administrador
 
-    public function create_user(Request $request)
+    public function create_user(UserRequest $request)
     {
         try {
             if (Auth::user()->role == "Administrador") {
@@ -47,7 +49,7 @@ class UserController extends Controller
         }
     }
 
-    public function update_user(Request $request, $id)
+    public function update_user(ProfileRequest $request, $id)
     {
         try {
             if (Auth::user()->role == "Administrador") {
@@ -98,7 +100,7 @@ class UserController extends Controller
 
     // Funcionalidades CRUD Usuarios Usuarios
 
-    public function update_profile(Request $request)
+    public function update_profile(ProfileRequest $request)
     {
         try {
             if (Auth::user()->role == "Usuario") {

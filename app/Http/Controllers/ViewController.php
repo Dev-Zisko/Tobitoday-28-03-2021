@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Beneficiary;
 use App\Models\Payment;
-use App\Models\Country;
+use App\Models\Thing;
 use App\Models\Rate;
 use Exception;
 use Auth;
@@ -76,7 +76,7 @@ class ViewController extends Controller
     {
         try {
             if (Auth::user()->role == "Administrador") {
-            	$countries = Country::All();
+            	$countries = Thing::where('type', 'País')->get();
                 return view('dashboard.users.createusers', compact('countries'));
             }
             else {
@@ -94,7 +94,7 @@ class ViewController extends Controller
             if (Auth::user()->role == "Administrador") {
             	$newid = Crypt::decrypt($id);
             	$user = User::find($newid);
-            	$countries = Country::All();
+            	$countries = Thing::where('type', 'País')->get();
                 return view('dashboard.users.updateusers', compact('user','countries'));
             }
             else {
@@ -112,7 +112,7 @@ class ViewController extends Controller
             if (Auth::user()->role == "Administrador") {
             	$newid = Crypt::decrypt($id);
             	$user = User::find($newid);
-            	$countries = Country::All();
+            	$countries = Thing::where('type', 'País')->get();
                 return view('dashboard.users.deleteusers', compact('user','countries'));
             }
             else {
@@ -154,7 +154,8 @@ class ViewController extends Controller
             if (Auth::user()->role == "Administrador") {
                 $newid = Crypt::decrypt($id);
                 $benefactor = User::where('id', $newid)->get();
-                return view('dashboard.beneficiaries.createbeneficiaries', compact('benefactor'));
+                $banks = Thing::where('type', 'Banco')->get();
+                return view('dashboard.beneficiaries.createbeneficiaries', compact('benefactor', 'banks'));
             }
             else {
                 return view('index');
@@ -172,7 +173,8 @@ class ViewController extends Controller
                 $newid = Crypt::decrypt($id);
             	$beneficiary = Beneficiary::find($newid);
                 $benefactor = User::find($beneficiary->id_user);
-                return view('dashboard.beneficiaries.updatebeneficiaries', compact('beneficiary', 'benefactor'));
+                $banks = Thing::where('type', 'Banco')->get();
+                return view('dashboard.beneficiaries.updatebeneficiaries', compact('beneficiary', 'benefactor', 'banks'));
             }
             else {
                 return view('index');
@@ -190,7 +192,8 @@ class ViewController extends Controller
             	$newid = Crypt::decrypt($id);
             	$beneficiary = Beneficiary::find($newid);
             	$benefactor = User::find($beneficiary->id_user);
-                return view('dashboard.beneficiaries.deletebeneficiaries', compact('beneficiary','benefactor'));
+                $banks = Thing::where('type', 'Banco')->get();
+                return view('dashboard.beneficiaries.deletebeneficiaries', compact('beneficiary','benefactor', 'banks'));
             }
             else {
                 return view('index');
@@ -259,7 +262,8 @@ class ViewController extends Controller
                 $benefactor = User::find($newid);
                 $beneficiaries = Beneficiary::where('id_user', $newid)->get();
                 $rate = Rate::find(1);
-                return view('dashboard.payments.createpayments', compact('benefactor', 'beneficiaries', 'rate'));
+                $methods = Thing::where('type', 'Pago')->get();
+                return view('dashboard.payments.createpayments', compact('benefactor', 'beneficiaries', 'rate', 'methods'));
             }
             else {
                 return view('index');
@@ -279,9 +283,9 @@ class ViewController extends Controller
                 $benefactor = User::find($payment->id_user);
                 $beneficiaries = Beneficiary::where('id_user', $benefactor->id)->get();
                 // PENDIENTE PREGUNTAR QUE TASA SE USARA
-                $rate = Rate::find(1);
                 $amountbs = $payment->amount * $payment->rate;
-                return view('dashboard.payments.updatepayments', compact('payment', 'amountbs', 'beneficiaries', 'rate'));
+                $methods = Thing::where('type', 'Pago')->get();
+                return view('dashboard.payments.updatepayments', compact('payment', 'amountbs', 'beneficiaries', 'methods'));
             }
             else {
                 return view('index');
@@ -359,7 +363,7 @@ class ViewController extends Controller
         try {
             if (Auth::user()->role == "Usuario") {
                 $user = User::find(Auth::user()->id);
-                $countries = Country::All();
+                $countries = Thing::where('type', 'País')->get();
                 return view('users.updateprofile', compact('countries','user'));
             }
             else {
@@ -393,7 +397,8 @@ class ViewController extends Controller
     {
         try {
             if (Auth::user()->role == "Usuario") {
-                return view('users.beneficiaries.createbeneficiaries');
+                $banks = Thing::where('type', 'Banco')->get();
+                return view('users.beneficiaries.createbeneficiaries', compact('banks'));
             }
             else {
                 return view('index');
@@ -410,7 +415,8 @@ class ViewController extends Controller
             if (Auth::user()->role == "Usuario") {
                 $newid = Crypt::decrypt($id);
                 $beneficiary = Beneficiary::find($newid);
-                return view('users.beneficiaries.updatebeneficiaries', compact('beneficiary'));
+                $banks = Thing::where('type', 'Banco')->get();
+                return view('users.beneficiaries.updatebeneficiaries', compact('beneficiary', 'banks'));
             }
             else {
                 return view('index');
@@ -428,7 +434,8 @@ class ViewController extends Controller
                 $newid = Crypt::decrypt($id);
                 $beneficiary = Beneficiary::find($newid);
                 $benefactor = User::find($beneficiary->id_user);
-                return view('users.beneficiaries.deletebeneficiaries', compact('beneficiary','benefactor'));
+                $banks = Thing::where('type', 'Banco')->get();
+                return view('users.beneficiaries.deletebeneficiaries', compact('beneficiary','benefactor', 'banks'));
             }
             else {
                 return view('index');
@@ -470,7 +477,8 @@ class ViewController extends Controller
                 $newid = Crypt::decrypt($id);
                 $beneficiary = Beneficiary::find($newid);
                 $rate = Rate::find(1);
-                return view('users.payments.sendpayment', compact('beneficiary', 'rate'));
+                $methods = Thing::where('type', 'Pago')->get();
+                return view('users.payments.sendpayment', compact('beneficiary', 'rate', 'methods'));
             }
             else {
                 return view('index');

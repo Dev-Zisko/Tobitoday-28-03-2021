@@ -65,14 +65,27 @@
 
                     <div class="form-group{{ $errors->has('bank') ? ' has-error' : '' }}">
                         <div class="input-group mb-3">
-
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #FF6723;" class="fa fa-fw fa-university"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-id-card"></i>
                                 </span>
                             </div>
 
                             <input id="bank" name="bank" type="text" class="form-control" placeholder="Nombre del banco..." value="{{ $beneficiary->bank }}" disabled>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('type_account') ? ' has-error' : '' }}">
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-piggy-bank"></i>
+                                </span>
+                            </div>
+
+                            <input id="type_account" name="type_account" type="text" class="form-control" placeholder="Tipo de cuenta..." value="{{ $beneficiary->type_account }}" disabled>
                     
                             <div class="input-group-prepend">
                                 <span class="input-group-text">

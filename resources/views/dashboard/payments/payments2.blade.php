@@ -30,7 +30,7 @@
                   <thead>
                     <tr>
                       <th>Identificación - Nombre Beneficiario</th>
-                      <th>Monto ($ o Є)</th>
+                      <th>Monto (Є)</th>
                       <th>Monto (Bs)</th>
                       <th>Estatus</th>
                       <th>Opciones</th>
@@ -42,7 +42,7 @@
                             <td>{{ $payment['beneficiary'] }}</td>
                             <td>{{ $payment['amount'] }}</td>
                             <td>{{ number_format($payment['amountbs'], 2, ',', '.') }}</td>
-                            @if($payment['status'] == "Por Verificar")
+                            @if($payment['status'] == "Procesando el Pago")
                               <td style="color: #FF6A00;">{{ $payment['status'] }}</td>
                             @else
                               <td style="color: #3AC400;">{{ $payment['status'] }}</td>

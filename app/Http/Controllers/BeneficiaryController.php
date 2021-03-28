@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\BeneficiaryRequest;
 use App\Models\User;
 use App\Models\Beneficiary;
 use App\Models\Payment;
@@ -18,7 +19,7 @@ class BeneficiaryController extends Controller
 {
     // Funcionalidades CRUD Beneficiarios Adminitrador
 
-    public function create_beneficiary(Request $request, $id)
+    public function create_beneficiary(BeneficiaryRequest $request, $id)
     {
         try {
             if (Auth::user()->role == "Administrador") {
@@ -29,6 +30,7 @@ class BeneficiaryController extends Controller
                 $beneficiary->identification = $request->identification;
                 $beneficiary->bank = $request->bank;
                 $beneficiary->number_account = $request->number_account;
+                $beneficiary->type_account = $request->type_account;
                 $beneficiary->mobile_payment = $request->mobile_payment;
                 $beneficiary->phonenumber = $request->phonenumber;
                 $beneficiary->email = $request->email;
@@ -45,7 +47,7 @@ class BeneficiaryController extends Controller
         }
     }
 
-    public function update_beneficiary(Request $request, $id)
+    public function update_beneficiary(BeneficiaryRequest $request, $id)
     {
         try {
             if (Auth::user()->role == "Administrador") {
@@ -55,6 +57,7 @@ class BeneficiaryController extends Controller
                 Beneficiary::where('id', $newid)->update(['identification' => $request->identification]);
                 Beneficiary::where('id', $newid)->update(['bank' => $request->bank]);
                 Beneficiary::where('id', $newid)->update(['number_account' => $request->number_account]);
+                Beneficiary::where('id', $newid)->update(['type_account' => $request->type_account]);
                 Beneficiary::where('id', $newid)->update(['mobile_payment' => $request->mobile_payment]);
                 Beneficiary::where('id', $newid)->update(['phonenumber' => $request->phonenumber]);
                 Beneficiary::where('id', $newid)->update(['email' => $request->email]);
@@ -91,7 +94,7 @@ class BeneficiaryController extends Controller
 
     // Funcionalidades CRUD Beneficiarios Usuarios
 
-    public function create_my_beneficiary(Request $request)
+    public function create_my_beneficiary(BeneficiaryRequest $request)
     {
         try {
             if (Auth::user()->role == "Usuario") {
@@ -101,6 +104,7 @@ class BeneficiaryController extends Controller
                 $beneficiary->identification = $request->identification;
                 $beneficiary->bank = $request->bank;
                 $beneficiary->number_account = $request->number_account;
+                $beneficiary->type_account = $request->type_account;
                 $beneficiary->mobile_payment = $request->mobile_payment;
                 $beneficiary->phonenumber = $request->phonenumber;
                 $beneficiary->email = $request->email;
@@ -117,7 +121,7 @@ class BeneficiaryController extends Controller
         }
     }
 
-    public function update_my_beneficiary(Request $request, $id)
+    public function update_my_beneficiary(BeneficiaryRequest $request, $id)
     {
         try {
             if (Auth::user()->role == "Usuario") {
@@ -127,6 +131,7 @@ class BeneficiaryController extends Controller
                 Beneficiary::where('id', $newid)->update(['identification' => $request->identification]);
                 Beneficiary::where('id', $newid)->update(['bank' => $request->bank]);
                 Beneficiary::where('id', $newid)->update(['number_account' => $request->number_account]);
+                Beneficiary::where('id', $newid)->update(['type_account' => $request->type_account]);
                 Beneficiary::where('id', $newid)->update(['mobile_payment' => $request->mobile_payment]);
                 Beneficiary::where('id', $newid)->update(['phonenumber' => $request->phonenumber]);
                 Beneficiary::where('id', $newid)->update(['email' => $request->email]);

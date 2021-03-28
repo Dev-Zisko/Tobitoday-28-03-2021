@@ -13,7 +13,7 @@ class PaymentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,20 @@ class PaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'amount' => 'required|string|max:255',
+            'rate' => 'required|string|max:255',
+            'method' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
+      ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => 'Este campo es obligatorio.',
+            'amount.regex' => 'El campo monto solo acepta números.',
+            'phonenumber.regex' => 'El campo número de teléfono solo acepta números.',
+            'max' => 'Los campos no aceptan más de 255 caracteres.',
         ];
     }
 }

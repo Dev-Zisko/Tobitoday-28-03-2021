@@ -39,8 +39,8 @@
                     <br>
                     <h5><strong>Tasa del día de la transacción:</strong> {{ $payment->rate }}</h5>
                     <br>
-                    <h5><strong>Monto en ($ o Є):</strong> {{ $payment->amount }}</h5>
-                    <h5><strong>Monto en (Bs):</strong> {{ $amountbs }}</h5>
+                    <h5><strong>Monto (Є):</strong> {{ $payment->amount }}</h5>
+                    <h5><strong>Monto (Bs):</strong> {{ $amountbs }}</h5>
                     <br>
                     <h5><strong>Método de pago:</strong> {{ $payment->method }}</h5>
                     <h5><strong>Estado de la operación:</strong> {{ $payment->status }}</h5>
@@ -60,12 +60,12 @@
                                 </span>
                             </div>
                             <select type="text" id="status" name="status" class="form-control" required>
-                                @if($payment->status == "Por Verificar")
-                                    <option value="Por Verificar" selected>Por Verificar</option>
-                                    <option value="Realizado">Realizado</option>
+                                @if($payment->status == "Procesando el Pago")
+                                    <option value="Procesando el Pago" selected>Procesando el Pago</option>
+                                    <option value="Pagado">Pagado</option>
                                 @else
-                                    <option value="Por Verificar">Por Verificar</option>
-                                    <option value="Realizado" selected>Realizado</option>
+                                    <option value="Procesando el Pago">Procesando el Pago</option>
+                                    <option value="Pagado" selected>Pagado</option>
                                 @endif
                             </select>
                         </div>
