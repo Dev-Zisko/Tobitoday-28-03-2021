@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use App\Models\Country;
+use App\Models\Thing;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -44,7 +44,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        $countries = Country::All();
+        $countries = Thing::where('type', 'País')->get();
         return view('auth.register', compact('countries'));
     }
 
@@ -57,8 +57,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'regex:/^[a-zñA-ZÑáéíóúÁÉÍÓÚ\s]+$/'],
+            'lastname' => ['required', 'string', 'max:255', 'regex:/^[a-zñA-ZÑáéíóúÁÉÍÓÚ\s]+$/'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);

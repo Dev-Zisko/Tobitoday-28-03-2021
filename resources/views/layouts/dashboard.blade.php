@@ -9,8 +9,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
   
-  <title>Administración de Condominios | </title>
-  <link rel="icon" href="{{ url('assetsDashboard/images/favicon.png') }}" type="image/png">
+  <title>TobiToday | Envía remesas fácil y rápido</title>
+  <link rel="icon" href="{{ url('assetsDashboard/images/favicon.ico') }}">
   <!-- Custom fonts for this template-->
   <link href="{{ url('assetsDashboard/vendor2/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -140,8 +140,10 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                @if(Auth::user()->role == "Usuario")
                 <a class="dropdown-item" href="{{route('editar-perfil')}}">
                 <i class="fas fa-user-circle fa-sm fa-fw mr-2"></i>Mi perfil</a>
+                @endif
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>Salir</a>

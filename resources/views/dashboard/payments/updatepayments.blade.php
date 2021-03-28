@@ -28,7 +28,7 @@
             @csrf
             <div class="card-header card-header-primary text-center">
                 <div class="social-line">
-                    <h3 style="color: #FF6723">Tasa del día: {{ number_format($rate['rate'], 2, ',', '.') }} Bs</h3>
+                    <h3 style="color: #FF6723">Tasa del día de la transacción: {{ number_format($payment['rate'], 2, ',', '.') }} Bs</h3>
 
                     <div class="form-group{{ $errors->has('beneficiary') ? ' has-error' : '' }}">
                         <label class="col-md-12 control-label" style="text-align: center;">Beneficiario</label>
@@ -57,11 +57,11 @@
 
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #FF6723;" class="fa fa-fw fa-dollar-sign"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-euro-sign"></i>
                                 </span>
                             </div>
 
-                            <input id="amount" name="amount" type="number" step="any" class="form-control" placeholder="Monto a envíar ($ o Є)..." value="{{ $payment->amount }}" onInput="updateAmountbs(this.value, {{ $rate->rate }})" required>
+                            <input id="amount" name="amount" type="number" step="any" class="form-control" placeholder="Monto a envíar (Є)..." value="{{ $payment->amount }}" onInput="updateAmountbs(this.value, {{ $payment->rate }})" required>
                     
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -93,7 +93,15 @@
                                 </span>
                             </div>
 
-                            <input id="method" name="method" type="text" class="form-control" placeholder="Método de pago..." value="{{ $payment->method }}" required>
+                            <select type="text" id="method" name="method" class="form-control" required>
+                                @foreach($methods as $method)
+                                    @if($payment->method == $method->name)
+                                        <option value="{{ $method->name }}" selected>{{ $method->name }}</option>
+                                    @else
+                                        <option value="{{ $method->name }}">{{ $method->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
 
                         </div>
                         @if ($errors->has('method'))
@@ -128,12 +136,12 @@
                                 </span>
                             </div>
                             <select type="text" id="status" name="status" class="form-control" required>
-                                @if($payment->status == "Por Verificar")
-                                    <option value="Por Verificar" selected>Por Verificar</option>
-                                    <option value="Realizado">Realizado</option>
+                                @if($payment->status == "Procesando el Pago")
+                                    <option value="Procesando el Pago" selected>Procesando el Pago</option>
+                                    <option value="Pagado">Pagado</option>
                                 @else
-                                    <option value="Por Verificar">Por Verificar</option>
-                                    <option value="Realizado" selected>Realizado</option>
+                                    <option value="Procesando el Pago">Procesando el Pago</option>
+                                    <option value="Pagado" selected>Pagado</option>
                                 @endif
                             </select>
                         </div>

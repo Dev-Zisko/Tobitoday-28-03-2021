@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\PaymentRequest;
 use App\Models\User;
 use App\Models\Beneficiary;
 use App\Models\Payment;
@@ -129,7 +130,7 @@ class PaymentController extends Controller
                     $cutvoucher = substr($voucher, 7);
                     $payment->voucher = $cutvoucher;
                 }
-                $payment->status = "Por Verificar";
+                $payment->status = "Procesando el Pago";
                 $payment->id_user = Auth::user()->id;
                 $payment->id_beneficiary = $newid;
                 $payment->save();

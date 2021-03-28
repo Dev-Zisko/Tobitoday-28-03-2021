@@ -32,6 +32,7 @@
                       <th>Identificación</th>
                       <th>Nombre Completo</th>
                       <th>Banco - Numero de cuenta</th>
+                      <th>Tipo de cuenta</th>
                       <th>Email</th>
                       <th>Opciones</th>
                     </tr>
@@ -42,6 +43,7 @@
                             <td>{{ $beneficiary['identification'] }}</td>
                             <td>{{ $beneficiary['name'] }} {{ $beneficiary['lastname'] }}</td>
                             <td>{{ $beneficiary['bank'] }} - {{ $beneficiary['number_account'] }}</td>
+                            <td>{{ $beneficiary['type_account'] }}</td>
                             <td>{{ $beneficiary['email'] }}</td>
                             <td>
                                 <a href="{{ url('editar-beneficiario',  Crypt::encrypt($beneficiary['id'])) }}"><i style="color: #FF6723;" class="fa fa-fw fa-edit"></i></a>

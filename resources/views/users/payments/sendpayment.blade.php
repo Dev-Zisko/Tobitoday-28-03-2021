@@ -54,11 +54,11 @@
 
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #FF6723;" class="fa fa-fw fa-dollar-sign"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-euro-sign"></i>
                                 </span>
                             </div>
 
-                            <input id="amount" name="amount" type="number" step="any" class="form-control" placeholder="Monto a envíar ($ o Є)..." value="{{ old('amount') }}" onInput="updateAmountbs(this.value, {{ $rate->rate }})" required>
+                            <input id="amount" name="amount" type="number" step="any" class="form-control" placeholder="Monto a envíar (Є)..." value="{{ old('amount') }}" onInput="updateAmountbs(this.value, {{ $rate->rate }})" required>
                     
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -90,7 +90,11 @@
                                 </span>
                             </div>
 
-                            <input id="method" name="method" type="text" class="form-control" placeholder="Método de pago..." value="{{ old('method') }}" required>
+                            <select type="text" id="method" name="method" class="form-control" required>
+                                @foreach($methods as $method)
+                                    <option value="{{ $method->name }}">{{ $method->name }}</option>
+                                @endforeach
+                            </select>
 
                         </div>
                         @if ($errors->has('method'))

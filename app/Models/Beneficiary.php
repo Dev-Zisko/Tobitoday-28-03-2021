@@ -15,6 +15,7 @@ class Beneficiary extends Model
         'identification',
         'bank',
         'number_account',
+        'type_account',
         'mobile_payment',
         'phonenumber',
         'email',

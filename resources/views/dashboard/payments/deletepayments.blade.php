@@ -70,11 +70,11 @@
 
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i style="color: #FF6723;" class="fa fa-fw fa-dollar-sign"></i>
+                                    <i style="color: #FF6723;" class="fa fa-fw fa-euro-sign"></i>
                                 </span>
                             </div>
 
-                            <input id="amount" name="amount" type="number" step="any" class="form-control" placeholder="Monto a envíar ($ o Є)..." value="{{ $payment->amount }}" disabled>
+                            <input id="amount" name="amount" type="number" step="any" class="form-control" placeholder="Monto a envíar (Є)..." value="{{ $payment->amount }}" disabled>
                     
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
