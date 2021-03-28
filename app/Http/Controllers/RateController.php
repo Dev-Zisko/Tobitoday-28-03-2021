@@ -24,7 +24,8 @@ class RateController extends Controller
     	try {
             if (Auth::user()->role == "Administrador") {
                 Rate::where('id', 1)->update(['rate' => $request->rate]);
-                Session::flash('message', 'Tasa del día actualizada exitosamente!');
+                Rate::where('id', 1)->update(['tax' => $request->tax]);
+                Session::flash('message', 'Tasa del día y gastos por gestión actualizados exitosamente!');
                 return redirect('tasa-del-dia');
             } else {
                 return redirect('index');

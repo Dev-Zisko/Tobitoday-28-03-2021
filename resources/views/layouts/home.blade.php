@@ -59,7 +59,7 @@
                         
                         @auth
 
-                            <a style="margin-left: 15px;" href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
+                            <a style="margin-left: 15px;" href="{{ url('/panel-administrativo') }}" class="text-sm text-gray-700 underline">Entrar</a>
                         @else
                             <!--<a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a> -->
                             <a style="margin-left: 15px;" class="btn btn-info navbar-btn" href="{{ route('login') }}">Ingresar</a>
