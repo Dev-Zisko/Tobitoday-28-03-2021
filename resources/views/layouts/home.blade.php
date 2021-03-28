@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>TobiToday</title>
+        <title>TobiToday | Envía remesas fácil y rápido</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Envios de remesas hacia Venezuela" name="description" />
         <meta content="Luis Da Silva" name="author" />
